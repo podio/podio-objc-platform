@@ -1,0 +1,3 @@
+[submodule "Vendor/podio-objc-core"]
+	path = Vendor/podio-objc-core
+	url = git@github.com:podio/podio-objc-core.git

@@ -10,16 +10,16 @@ PODS:
     - PodioKitCore/Common
 
 DEPENDENCIES:
-  - PodioKitCore (from `../podio-objc-core`)
-  - PodioKitCore/Push (from `../podio-objc-core`)
+  - PodioKitCore (from `Vendor/podio-objc-core`)
+  - PodioKitCore/Push (from `Vendor/podio-objc-core`)
 
 EXTERNAL SOURCES:
   PodioKitCore:
-    :path: ../podio-objc-core
+    :path: Vendor/podio-objc-core
 
 SPEC CHECKSUMS:
   DDCometClient: 6fc6115df9b5cd4d7481dd20fba53ed5f1feb8d6
   FXReachability: 228b601247952766994ab610b0a83b6c30c64559
-  PodioKitCore: 299b22047aeeeb469aad48cdb4b9d3250a39541d
+  PodioKitCore: f794bdef3848cd9a3c4b450c14764cb2c61e7484
 
 COCOAPODS: 0.35.0

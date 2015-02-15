@@ -3,6 +3,6 @@
 
 target 'PodioPlatformKit' do
 
-  pod 'PodioKitCore', :path => '../podio-objc-core'
-  pod 'PodioKitCore/Push', :path => '../podio-objc-core'
+  pod 'PodioKitCore', :path => 'Vendor/podio-objc-core'
+  pod 'PodioKitCore/Push', :path => 'Vendor/podio-objc-core'
 end
