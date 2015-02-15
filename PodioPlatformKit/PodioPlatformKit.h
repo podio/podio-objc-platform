@@ -7,3 +7,4 @@
 //
 
 #import "PodioKitCore.h"
+#import "PPKAppsAPI.h"

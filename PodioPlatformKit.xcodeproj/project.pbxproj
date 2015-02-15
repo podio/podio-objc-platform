@@ -25,8 +25,8 @@
 		167787C36AE60E2569272859 /* libPods-PodioPlatformKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5922D88386DF2B43A88B1BB6 /* libPods-PodioPlatformKit.a */; };
 		501224B21A90BBA5005BFDA1 /* PodioPlatformKit.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 501224B11A90BBA5005BFDA1 /* PodioPlatformKit.h */; };
 		501224BA1A90BBA6005BFDA1 /* libPodioPlatformKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 501224AE1A90BBA5005BFDA1 /* libPodioPlatformKit.a */; };
-		501224DB1A90E19E005BFDA1 /* TestClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 501224DA1A90E19E005BFDA1 /* TestClass.m */; };
-		501224DC1A90E772005BFDA1 /* TestClass.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 501224D91A90E19E005BFDA1 /* TestClass.h */; };
+		503042811A91403700082A39 /* PPKAppsAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 503042801A91403700082A39 /* PPKAppsAPI.m */; };
+		503042821A91411A00082A39 /* PPKAppsAPI.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 5030427F1A91403700082A39 /* PPKAppsAPI.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,7 +53,7 @@
 			dstPath = "include/$(PRODUCT_NAME)";
 			dstSubfolderSpec = 16;
 			files = (
-				501224DC1A90E772005BFDA1 /* TestClass.h in CopyFiles */,
+				503042821A91411A00082A39 /* PPKAppsAPI.h in CopyFiles */,
 				501224B21A90BBA5005BFDA1 /* PodioPlatformKit.h in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -65,8 +65,8 @@
 		501224B11A90BBA5005BFDA1 /* PodioPlatformKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PodioPlatformKit.h; sourceTree = "<group>"; };
 		501224B91A90BBA6005BFDA1 /* PodioPlatformKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PodioPlatformKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		501224BF1A90BBA6005BFDA1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		501224D91A90E19E005BFDA1 /* TestClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestClass.h; sourceTree = "<group>"; };
-		501224DA1A90E19E005BFDA1 /* TestClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestClass.m; sourceTree = "<group>"; };
+		5030427F1A91403700082A39 /* PPKAppsAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPKAppsAPI.h; sourceTree = "<group>"; };
+		503042801A91403700082A39 /* PPKAppsAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPKAppsAPI.m; sourceTree = "<group>"; };
 		5922D88386DF2B43A88B1BB6 /* libPods-PodioPlatformKit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-PodioPlatformKit.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		99BB32EE99A8DB193A2FF4C8 /* Pods-PodioPlatformKit.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PodioPlatformKit.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PodioPlatformKit/Pods-PodioPlatformKit.debug.xcconfig"; sourceTree = "<group>"; };
 		FD58F4274F4A31925B97AA49 /* Pods-PodioPlatformKit.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PodioPlatformKit.release.xcconfig"; path = "Pods/Target Support Files/Pods-PodioPlatformKit/Pods-PodioPlatformKit.release.xcconfig"; sourceTree = "<group>"; };
@@ -115,9 +115,8 @@
 		501224B01A90BBA5005BFDA1 /* PodioPlatformKit */ = {
 			isa = PBXGroup;
 			children = (
+				5030427E1A913FCE00082A39 /* API */,
 				501224B11A90BBA5005BFDA1 /* PodioPlatformKit.h */,
-				501224D91A90E19E005BFDA1 /* TestClass.h */,
-				501224DA1A90E19E005BFDA1 /* TestClass.m */,
 			);
 			path = PodioPlatformKit;
 			sourceTree = "<group>";
@@ -136,6 +135,15 @@
 				501224BF1A90BBA6005BFDA1 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		5030427E1A913FCE00082A39 /* API */ = {
+			isa = PBXGroup;
+			children = (
+				5030427F1A91403700082A39 /* PPKAppsAPI.h */,
+				503042801A91403700082A39 /* PPKAppsAPI.m */,
+			);
+			path = API;
 			sourceTree = "<group>";
 		};
 		63DF32D009A47907B16FF04E /* Pods */ = {
@@ -311,7 +319,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				501224DB1A90E19E005BFDA1 /* TestClass.m in Sources */,
+				503042811A91403700082A39 /* PPKAppsAPI.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
