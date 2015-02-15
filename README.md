@@ -8,27 +8,17 @@ PodioPlatformKit is being actively developed by the Podio team. We encourage con
 
 ## Integrate with an existing project
 
-We encourage you to use [CocoaPods](http://cocoapods.org/) to integrate PodioPlatformKit with your existing project. CocoaPods is a dependency manager for Objective-C that makes dealing with code dependencies easy.
+You use PodioPlatformKit by building the *Framework* target of the scheme.
 
-First, make sure your have integrated CocoaPods with your project. If you have not, there is a great guide available [here](http://guides.cocoapods.org/using/getting-started.html).
+1. Run `pod install` to install dependencies
+2. Open the `PodioPlatformKit.xcworkspace` file created
+3. Select the *Framework* scheme, then press `cmd+B` to build.
+4. You can now find the built framework as `PodioPlatformKit.framework` in your desktop folder at `~/Desktop`.
+5. Drag the framework into your Xcode project
+6. Import the umbrella header wherever you want with `#import <PodioPlatformKit/PodioPlatformKit.h>`.
+7. Done!
 
-Once CocoaPods is installed, add the following line to your `Podfile` to use the latest stable release:
-
-```ruby
-pod 'PodioPlatformKit', '~> 1.0'
-```
-
-Then run `pod install` from the command line.
-
-After that you are ready to start using PodioPlatformKit by importing the main header file where you would like to use it in your project:
-
-```objective-c
-#import <PodioPlatformKit/PodioPlatformKit.h>
-```
-
-Alternatively, you can use the PodioPlatformKit as a framework.
-
-## Using PodioKit
+## Using PodioPlatformKit
 
 ### Set up your API key and secret
 
