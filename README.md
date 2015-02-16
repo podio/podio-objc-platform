@@ -37,4 +37,4 @@ That's it! You are now good to start using PodioPlatformKit.
 
 ## Getting Started & Documentation
 
-You can find a getting started guide and full documentation over at the [PodioKit Github pages](http://podio.github.io/podio-objc-platform/).
+You can find a getting started guide and full documentation [here](Documentation).
