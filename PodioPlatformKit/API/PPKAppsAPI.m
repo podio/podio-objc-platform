@@ -10,10 +10,10 @@
 
 @implementation PPKAppsAPI
 
-+ (PKTRequest *)requestForAppWithID:(NSUInteger)appID {
++ (PKCRequest *)requestForAppWithID:(NSUInteger)appID {
   NSParameterAssert(appID > 0);
   
-  return [PKTRequest GETRequestWithPath:PKTRequestPath(@"/app/%lu", (unsigned long)appID) parameters:nil];
+  return [PKCRequest GETRequestWithPath:PKCRequestPath(@"/app/%lu", (unsigned long)appID) parameters:nil];
 }
 
 @end

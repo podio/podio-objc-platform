@@ -6,10 +6,10 @@
 //  Copyright (c) 2015 Citrix Systems, Inc. All rights reserved.
 //
 
-#import "PKTBaseAPI.h"
+#import <PodioKitCore/PodioKitCore.h>
 
-@interface PPKAppsAPI : PKTBaseAPI
+@interface PPKAppsAPI : PKCBaseAPI
 
-+ (PKTRequest *)requestForAppWithID:(NSUInteger)appID;
++ (PKCRequest *)requestForAppWithID:(NSUInteger)appID;
 
 @end
