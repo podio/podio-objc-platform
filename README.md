@@ -12,12 +12,10 @@ To use PodioPlatformKit, perform the following steps:
 
 1. Clone this repo by running `git clone --recurse-submodules git@github.com:podio/podio-objc-platform.git`
 2. Enter the cloned directory `cd podio-objc-platform`
-3. Run `pod install` to install dependencies
-4. Open the `PodioPlatformKit.xcworkspace` file created
-5. Select the *Framework* scheme, then press `cmd+B` to build
-6. You can now find the built framework as `PodioPlatformKit.framework` in your desktop folder at `~/Desktop`
-7. Drag the framework into your Xcode project
-8. Import the umbrella header wherever with `#import <PodioPlatformKit/PodioPlatformKit.h>`
+3. Run `./build.sh` to build the framework
+4. You can now find the built framework as `PodioPlatformKit.framework` in your desktop folder at `~/Desktop`
+5. Drag the framework into your Xcode project
+6. Import the umbrella header wherever with `#import <PodioPlatformKit/PodioPlatformKit.h>`
 
 Done!
 
