@@ -9,7 +9,7 @@ The Podio API supports multiple ways of authenticating a client. PodioPlatformKi
 Each of them are described below. The client is considered to be authenticated once it has obtained a valid OAuth2 token. You can easily check if the client is authenticated:
 
 {% highlight objective-c %}
-if ([PodioKit isAuthenticated]) {
+if ([Podio isAuthenticated]) {
   // The client is authenticated
 }
 {% endhighlight %}
@@ -27,7 +27,7 @@ This option is great when you want to have every user of your client app to log 
 Here is how to authenticate as a user:
 
 {% highlight objective-c %}
-PKCAsyncTask *authTask = [PodioKit authenticateAsUserWithEmail:@"myname@mydomain.com" password:@"p4$$w0rD"];
+PKCAsyncTask *authTask = [Podio authenticateAsUserWithEmail:@"myname@mydomain.com" password:@"p4$$w0rD"];
 
 [authTask onComplete:^(PKCResponse *response, NSError *error) {
   if (!error) {
@@ -51,7 +51,7 @@ To authenticate as the app, you need to find the app ID and token for your app. 
 Here is an example of how to authenticate as an app:
 
 {% highlight objective-c %}
-PKCAsyncTask *authTask = [PodioKit authenticateAsAppWithID:123456 token:@"my-app-token"];
+PKCAsyncTask *authTask = [Podio authenticateAsAppWithID:123456 token:@"my-app-token"];
 
 [authTask onComplete:^(PKCResponse *response, NSError *error) {
   if (!error) {
@@ -67,7 +67,7 @@ PKCAsyncTask *authTask = [PodioKit authenticateAsAppWithID:123456 token:@"my-app
 Instead of explicitly authenticating as an app as shown in the example above, there is also an option to automatically authenticate as an app. This means that instead of choosing yourself when to authenticate the app, you simply provide PodioPlatformKit with the app ID and token and it will automatatically handle the authentication step when you try to make an API operation. This is usually the prefereable option as it means you do not have to handle the authentication step yourself. To authenticate automatically, just make the following call after setting up your API key and secret:
 
 {% highlight objective-c %}
-[PodioKit authenticateAutomaticallyAsAppWithID:123456 token:@"my-app-token"];
+[Podio authenticateAutomaticallyAsAppWithID:123456 token:@"my-app-token"];
 {% endhighlight %}
 
 ## Saving and restoring a session across app launches
@@ -78,11 +78,11 @@ PodioKit provides a protocol called `PKCTokenStore` and a concrete class `PKCKey
 
 {% highlight objective-c %}
 ...
-// [PodioKit setupWithAPIKey:PODIO_API_KEY secret:];
+// [Podio setupWithAPIKey:PODIO_API_KEY secret:];
 
-[PodioKit automaticallyStoreTokenInKeychainForCurrentApp];
+[Podio automaticallyStoreTokenInKeychainForCurrentApp];
 // or
-[PodioKit automaticallyStoreTokenInKeychainForServiceWithName:@"MyApp"];
+[Podio automaticallyStoreTokenInKeychainForServiceWithName:@"MyApp"];
 ...
 {% endhighlight %}
 
