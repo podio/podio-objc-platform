@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 Citrix Systems, Inc. All rights reserved.
 //
 
-#import <PodioKitCore/PodioKitCore.h>
+#import "PKCBaseAPI.h"
 
 @interface PPKAppsAPI : PKCBaseAPI
 
