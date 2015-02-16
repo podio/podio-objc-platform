@@ -1,6 +1,3 @@
----
-layout: default
----
 # Authentication & Session Management
 
 The Podio API supports multiple ways of authenticating a client. PodioPlatformKit provides three primary options:

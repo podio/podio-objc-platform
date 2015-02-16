@@ -1,7 +1,3 @@
----
-layout: default
----
-
 # Local storage  & caching
 
 Sometimes only relying on in-memory data is not enough. For example, you might want to persist fetched Podio content to disk across application launches.

@@ -1,6 +1,3 @@
----
-layout: default
----
 # Working with Files
 
 Files on Podio are represented by the `PKCFile` class in PodioPlatformKit. It will be the type returned for the files of any object that can have associated files such as items, tasks or comments etc.

@@ -1,6 +1,3 @@
----
-layout: default
----
 # Basic Principles of Asynchronicity
 
 PodioPlatformKit's main responsibility os making request to the Podio API. To do so, it needs to provide a mean of handling asynchronous 
