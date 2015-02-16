@@ -27,7 +27,7 @@ Before you can talk to the Podio Platform API, you need to generate a new API ke
 Once you have a key and secret, you need to configure PodioPlatformKit to use it. To do so, add the following code to your `application:didFinishLaunching:options:` method in your app delegate:
 
 ```objective-c
-[[PKTClient currentClient] setupWithAPIKey:@"my-api-key" secret:@"my-secret"];
+[[PKCClient currentClient] setupWithAPIKey:@"my-api-key" secret:@"my-secret"];
 ```
 	
 That's it! You are now good to start using PodioPlatformKit.
