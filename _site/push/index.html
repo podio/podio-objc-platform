@@ -2,7 +2,7 @@
 <html>
   <head>
     <link href="/favicon.ico" rel="shortcut icon" sizes="16x16 32x32 64x64" />
-    <title>PodioKit • The Objective-C SDK for Podio</title>
+    <title>Podio Platform Kit • The Objective-C SDK for Podio Platform</title>
     <link rel="stylesheet" href="/css/normalize.css">
     <link rel="stylesheet" href="/css/syntax.css">
     <link rel="stylesheet" href="/css/style.css">
@@ -22,18 +22,16 @@
             <li class=""><a href="/files">Working with files</a></li>
             <li class=""><a href="/comments">Working with comments</a></li>
             <li class=""><a href="/debug">Debugging &amp; errors</a></li>
-            <li class=""><a href="/samples">Sample code &amp; apps</a></li>
-            <li class=""><a href="/changelog">Release notes</a></li>
           </ul>
         </nav>
-        <p>You have found PodioKit, the official Objective-C SDK for <a href="https://developers.podio.com/">Podio</a>. It works with both iOS and Mac OS X.</p>
+        <p>You have found Podio Platform Kit, the official Objective-C SDK for <a href="https://platform.podio.com/">Podio Platform</a>. It works with both iOS and Mac OS X.</p>
         <p>
-          <a href="https://travis-ci.org/podio/podio-objc"><img src="https://travis-ci.org/podio/podio-objc.png?branch=master" alt="Build Status"></a>
+          <a href="https://travis-ci.org/podio/podio-objc-platform"><img src="https://travis-ci.org/podio/podio-objc.png?branch=master" alt="Build Status"></a>
         </p>
-        <p>For help post on <a href="http://stackoverflow.com/questions/tagged/podio">Stack Overflow</a> and tag with <b>podio</b>. For bugs <a href="https://github.com/podio/podio-objc/issues">create an issue on GitHub</a>.</p>
+        <p>For help post on <a href="http://stackoverflow.com/questions/tagged/podio">Stack Overflow</a> and tag with <b>podio</b>. For bugs <a href="https://github.com/podio/podio-objc-platform/issues">create an issue on GitHub</a>.</p>
         <ul class="buttons">
-          <li><a class="download" href="https://github.com/podio/podio-objc/releases">Download</a></li>
-          <li><a class="github" href="https://github.com/podio/podio-objc">GitHub</a></li>
+          <li><a class="download" href="https://github.com/podio/podio-objc-platform/releases">Download</a></li>
+          <li><a class="github" href="https://github.com/podio/podio-objc-platform">GitHub</a></li>
         </ul>
       </header>
       <main>
@@ -41,20 +39,20 @@
 
 <p>It is sometimes useful for a client to be able to receive real-time updates from Podio when a new event occurs in the system. In Podio, there are many types of push events and they always occur on a specific resource, a.k.a. the “carrier object”, for example a user or a conversation. For a detailed description of supported push events, see <a href="https://developers.podio.com/examples/push">this page</a>.</p>
 
-<p>To subscribe to events on a specific object, you need to pass the <code>PKTPushCredential</code> instance available on domain objects that can act as carrier objects. Examples of these include the <code>PKTUser</code> and <code>PKTConversation</code>, both of which expose a <code>pushCredential</code> property.</p>
+<p>To subscribe to events on a specific object, you need to pass the <code>PKCPushCredential</code> instance available on domain objects that can act as carrier objects. Examples of these include the <code>PKCUser</code> and <code>PKCConversation</code>, both of which expose a <code>pushCredential</code> property.</p>
 
 <p>For example, to subscribe to events for the logged in user:</p>
 
-<div class="highlight"><pre><code class="objective-c"><span class="p">[[</span><span class="n">PKTUser</span> <span class="n">fetchCurrentUser</span><span class="p">]</span> <span class="n">onSuccess</span><span class="o">:^</span> <span class="p">(</span><span class="n">PKTUser</span> <span class="o">*</span><span class="n">user</span><span class="p">)</span> <span class="p">{</span>
-  <span class="n">PKTPushSubscription</span> <span class="o">*</span><span class="n">subscription</span> <span class="o">=</span> <span class="p">[</span><span class="n">PKTPushClient</span> <span class="n">subscribeWithCredential</span><span class="o">:</span><span class="n">user</span> <span class="n">eventBlock</span><span class="o">:^</span><span class="p">(</span><span class="n">PKTPushEvent</span> <span class="o">*</span><span class="n">event</span><span class="p">)</span> <span class="p">{</span>
+<div class="highlight"><pre><code class="objective-c"><span class="p">[[</span><span class="n">PKCUser</span> <span class="n">fetchCurrentUser</span><span class="p">]</span> <span class="n">onSuccess</span><span class="o">:^</span> <span class="p">(</span><span class="n">PKCUser</span> <span class="o">*</span><span class="n">user</span><span class="p">)</span> <span class="p">{</span>
+  <span class="n">PKCPushSubscription</span> <span class="o">*</span><span class="n">subscription</span> <span class="o">=</span> <span class="p">[</span><span class="n">PKCPushClient</span> <span class="n">subscribeWithCredential</span><span class="o">:</span><span class="n">user</span> <span class="n">eventBlock</span><span class="o">:^</span><span class="p">(</span><span class="n">PKCPushEvent</span> <span class="o">*</span><span class="n">event</span><span class="p">)</span> <span class="p">{</span>
     <span class="n">NSLog</span><span class="p">(</span><span class="s">@&quot;Received event of type: %@&quot;</span><span class="p">,</span> <span class="p">@(</span><span class="n">event</span><span class="p">.</span><span class="n">eventType</span><span class="p">));</span>
   <span class="p">}];</span>
 <span class="p">}];</span>
 </code></pre></div>
 
-<p>To unsubscribe from the channel (normally before logging the user out or when leaving a screen), simply call the <code>unsubscribe</code> method on the returned <code>PKTPushSubscription</code> object:</p>
+<p>To unsubscribe from the channel (normally before logging the user out or when leaving a screen), simply call the <code>unsubscribe</code> method on the returned <code>PKCPushSubscription</code> object:</p>
 
-<div class="highlight"><pre><code class="objective-c"><span class="n">PKTPushSubscription</span> <span class="o">*</span><span class="n">subscription</span> <span class="o">=</span> <span class="p">...</span>
+<div class="highlight"><pre><code class="objective-c"><span class="n">PKCPushSubscription</span> <span class="o">*</span><span class="n">subscription</span> <span class="o">=</span> <span class="p">...</span>
 <span class="p">[</span><span class="n">subscription</span> <span class="n">unsubscribe</span><span class="p">];</span>
 </code></pre></div>
 

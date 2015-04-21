@@ -2,7 +2,7 @@
 <html>
   <head>
     <link href="/favicon.ico" rel="shortcut icon" sizes="16x16 32x32 64x64" />
-    <title>PodioKit • The Objective-C SDK for Podio</title>
+    <title>Podio Platform Kit • The Objective-C SDK for Podio Platform</title>
     <link rel="stylesheet" href="/css/normalize.css">
     <link rel="stylesheet" href="/css/syntax.css">
     <link rel="stylesheet" href="/css/style.css">
@@ -22,18 +22,16 @@
             <li class=""><a href="/files">Working with files</a></li>
             <li class=""><a href="/comments">Working with comments</a></li>
             <li class=""><a href="/debug">Debugging &amp; errors</a></li>
-            <li class=""><a href="/samples">Sample code &amp; apps</a></li>
-            <li class=""><a href="/changelog">Release notes</a></li>
           </ul>
         </nav>
-        <p>You have found PodioKit, the official Objective-C SDK for <a href="https://developers.podio.com/">Podio</a>. It works with both iOS and Mac OS X.</p>
+        <p>You have found Podio Platform Kit, the official Objective-C SDK for <a href="https://platform.podio.com/">Podio Platform</a>. It works with both iOS and Mac OS X.</p>
         <p>
-          <a href="https://travis-ci.org/podio/podio-objc"><img src="https://travis-ci.org/podio/podio-objc.png?branch=master" alt="Build Status"></a>
+          <a href="https://travis-ci.org/podio/podio-objc-platform"><img src="https://travis-ci.org/podio/podio-objc.png?branch=master" alt="Build Status"></a>
         </p>
-        <p>For help post on <a href="http://stackoverflow.com/questions/tagged/podio">Stack Overflow</a> and tag with <b>podio</b>. For bugs <a href="https://github.com/podio/podio-objc/issues">create an issue on GitHub</a>.</p>
+        <p>For help post on <a href="http://stackoverflow.com/questions/tagged/podio">Stack Overflow</a> and tag with <b>podio</b>. For bugs <a href="https://github.com/podio/podio-objc-platform/issues">create an issue on GitHub</a>.</p>
         <ul class="buttons">
-          <li><a class="download" href="https://github.com/podio/podio-objc/releases">Download</a></li>
-          <li><a class="github" href="https://github.com/podio/podio-objc">GitHub</a></li>
+          <li><a class="download" href="https://github.com/podio/podio-objc-platform/releases">Download</a></li>
+          <li><a class="github" href="https://github.com/podio/podio-objc-platform">GitHub</a></li>
         </ul>
       </header>
       <main>
@@ -57,7 +55,7 @@
   <li>Duration</li>
 </ul>
 
-<p>Below, we will cover each of them in detail and how to use them. Fields values can be easily accessed by Objective-C subscripting syntax, or through the <code>valueForField:</code> or <code>setValue:forField:</code> methods on <code>PKTItem</code>.</p>
+<p>Below, we will cover each of them in detail and how to use them. Fields values can be easily accessed by Objective-C subscripting syntax, or through the <code>valueForField:</code> or <code>setValue:forField:</code> methods on <code>PKCItem</code>.</p>
 
 <h2 id="text-field">Text field</h2>
 
@@ -73,14 +71,14 @@
 
 <h2 id="category-field">Category field</h2>
 
-<p>A category field can hold one or multiple values of type <code>PKTCategoryOption</code>. To read the value from an item, use:</p>
+<p>A category field can hold one or multiple values of type <code>PKCCategoryOption</code>. To read the value from an item, use:</p>
 
-<div class="highlight"><pre><code class="objective-c"><span class="n">PKTCategoryOption</span> <span class="o">*</span><span class="n">option</span> <span class="o">=</span> <span class="n">item</span><span class="p">[</span><span class="s">@&quot;status&quot;</span><span class="p">];</span> <span class="c1">// &#39;status&#39; is a category field</span>
+<div class="highlight"><pre><code class="objective-c"><span class="n">PKCCategoryOption</span> <span class="o">*</span><span class="n">option</span> <span class="o">=</span> <span class="n">item</span><span class="p">[</span><span class="s">@&quot;status&quot;</span><span class="p">];</span> <span class="c1">// &#39;status&#39; is a category field</span>
 </code></pre></div>
 
-<p>To set it, you can either provide an instance of <code>PKTCategoryOption</code> or optionally provide the option ID directly if you know it:</p>
+<p>To set it, you can either provide an instance of <code>PKCCategoryOption</code> or optionally provide the option ID directly if you know it:</p>
 
-<div class="highlight"><pre><code class="objective-c"><span class="n">PKTCategoryOption</span> <span class="o">*</span><span class="n">option</span> <span class="o">=</span> <span class="p">...;</span>
+<div class="highlight"><pre><code class="objective-c"><span class="n">PKCCategoryOption</span> <span class="o">*</span><span class="n">option</span> <span class="o">=</span> <span class="p">...;</span>
 <span class="n">item</span><span class="p">[</span><span class="s">@&quot;status&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">option</span><span class="p">;</span>             <span class="c1">// Give the full option object</span>
 <span class="c1">// or...</span>
 <span class="n">item</span><span class="p">[</span><span class="s">@&quot;status&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">@(</span><span class="n">option</span><span class="p">.</span><span class="n">optionID</span><span class="p">)</span>  <span class="c1">// Only give the option ID</span>
@@ -88,14 +86,14 @@
 
 <h2 id="date-field">Date field</h2>
 
-<p>A date represents a single date or a start/end date pair, represented by a single value of type <code>PKTDateRange</code>. To read the value from an item, use:</p>
+<p>A date represents a single date or a start/end date pair, represented by a single value of type <code>PKCDateRange</code>. To read the value from an item, use:</p>
 
-<div class="highlight"><pre><code class="objective-c"><span class="n">PKTDateRange</span> <span class="o">*</span><span class="n">dates</span> <span class="o">=</span> <span class="n">item</span><span class="p">[</span><span class="s">@&quot;meeting_date&quot;</span><span class="p">];</span> <span class="c1">// &#39;meeting_date&#39; is a date field</span>
+<div class="highlight"><pre><code class="objective-c"><span class="n">PKCDateRange</span> <span class="o">*</span><span class="n">dates</span> <span class="o">=</span> <span class="n">item</span><span class="p">[</span><span class="s">@&quot;meeting_date&quot;</span><span class="p">];</span> <span class="c1">// &#39;meeting_date&#39; is a date field</span>
 </code></pre></div>
 
-<p>To set it, you can either provide an instance of <code>PKTDateRange</code>, which supports both start and end dates, or optionally provide only an <code>NSDate</code> which will then be used as the start date for the field:</p>
+<p>To set it, you can either provide an instance of <code>PKCDateRange</code>, which supports both start and end dates, or optionally provide only an <code>NSDate</code> which will then be used as the start date for the field:</p>
 
-<div class="highlight"><pre><code class="objective-c"><span class="n">PKTDateRange</span> <span class="o">*</span><span class="n">dates</span> <span class="o">=</span> <span class="p">...;</span>
+<div class="highlight"><pre><code class="objective-c"><span class="n">PKCDateRange</span> <span class="o">*</span><span class="n">dates</span> <span class="o">=</span> <span class="p">...;</span>
 <span class="n">item</span><span class="p">[</span><span class="s">@&quot;meeting_date&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">dates</span><span class="p">;</span>         <span class="c1">// Give the full date range object</span>
 <span class="c1">// or...</span>
 <span class="n">item</span><span class="p">[</span><span class="s">@&quot;meeting_date&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSDate</span> <span class="n">date</span><span class="p">];</span> <span class="c1">// Give the current time as an NSDate directly</span>
@@ -103,33 +101,33 @@
 
 <h2 id="relationship-field">Relationship field</h2>
 
-<p>A relationship field hold references to a single or multiple referenced items. It support a single or multiple values of type <code>PKTItem</code>. To read the value from an item, use:</p>
+<p>A relationship field hold references to a single or multiple referenced items. It support a single or multiple values of type <code>PKCItem</code>. To read the value from an item, use:</p>
 
-<div class="highlight"><pre><code class="objective-c"><span class="n">PKTItem</span> <span class="o">*</span><span class="n">item</span> <span class="o">=</span> <span class="n">item</span><span class="p">[</span><span class="s">@&quot;project&quot;</span><span class="p">];</span> <span class="c1">// &#39;project&#39; is a relationship field</span>
+<div class="highlight"><pre><code class="objective-c"><span class="n">PKCItem</span> <span class="o">*</span><span class="n">item</span> <span class="o">=</span> <span class="n">item</span><span class="p">[</span><span class="s">@&quot;project&quot;</span><span class="p">];</span> <span class="c1">// &#39;project&#39; is a relationship field</span>
 </code></pre></div>
 
-<p>You can set it by providing an instance of <code>PKTItem</code>:</p>
+<p>You can set it by providing an instance of <code>PKCItem</code>:</p>
 
-<div class="highlight"><pre><code class="objective-c"><span class="n">PKTItem</span> <span class="o">*</span><span class="n">referencedItem</span> <span class="o">=</span> <span class="p">...;</span>
+<div class="highlight"><pre><code class="objective-c"><span class="n">PKCItem</span> <span class="o">*</span><span class="n">referencedItem</span> <span class="o">=</span> <span class="p">...;</span>
 <span class="n">item</span><span class="p">[</span><span class="s">@&quot;project&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">referencedItem</span><span class="p">;</span>
 
 <span class="c1">// or add multiple...</span>
-<span class="n">PKTItem</span> <span class="o">*</span><span class="n">referencedItem2</span> <span class="o">=</span> <span class="p">...;</span>
-<span class="n">PKTItem</span> <span class="o">*</span><span class="n">referencedItem3</span> <span class="o">=</span> <span class="p">...;</span>
+<span class="n">PKCItem</span> <span class="o">*</span><span class="n">referencedItem2</span> <span class="o">=</span> <span class="p">...;</span>
+<span class="n">PKCItem</span> <span class="o">*</span><span class="n">referencedItem3</span> <span class="o">=</span> <span class="p">...;</span>
 <span class="p">[</span><span class="n">item</span> <span class="n">addValue</span><span class="o">:</span><span class="n">referencedItem2</span> <span class="n">forField</span><span class="o">:</span><span class="s">@&quot;project&quot;</span><span class="p">];</span>
 <span class="p">[</span><span class="n">item</span> <span class="n">addValue</span><span class="o">:</span><span class="n">referencedItem3</span> <span class="n">forField</span><span class="o">:</span><span class="s">@&quot;project&quot;</span><span class="p">];</span>
 </code></pre></div>
 
 <h2 id="contact-field">Contact field</h2>
 
-<p>A contact field can hold one or multiple values of type <code>PKTProfile</code>. To read the value from an item, use:</p>
+<p>A contact field can hold one or multiple values of type <code>PKCProfile</code>. To read the value from an item, use:</p>
 
-<div class="highlight"><pre><code class="objective-c"><span class="n">PKTProfile</span> <span class="o">*</span><span class="n">contact</span> <span class="o">=</span> <span class="n">item</span><span class="p">[</span><span class="s">@&quot;responsible&quot;</span><span class="p">];</span> <span class="c1">// &#39;responsible&#39; is a contact field</span>
+<div class="highlight"><pre><code class="objective-c"><span class="n">PKCProfile</span> <span class="o">*</span><span class="n">contact</span> <span class="o">=</span> <span class="n">item</span><span class="p">[</span><span class="s">@&quot;responsible&quot;</span><span class="p">];</span> <span class="c1">// &#39;responsible&#39; is a contact field</span>
 </code></pre></div>
 
-<p>To set it, provide an instance of <code>PKTProfile</code>:</p>
+<p>To set it, provide an instance of <code>PKCProfile</code>:</p>
 
-<div class="highlight"><pre><code class="objective-c"><span class="n">PKTProfile</span> <span class="o">*</span><span class="n">contact</span> <span class="o">=</span> <span class="p">...;</span>
+<div class="highlight"><pre><code class="objective-c"><span class="n">PKCProfile</span> <span class="o">*</span><span class="n">contact</span> <span class="o">=</span> <span class="p">...;</span>
 <span class="n">item</span><span class="p">[</span><span class="s">@&quot;responsible&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">contact</span><span class="p">;</span>
 </code></pre></div>
 
@@ -147,40 +145,40 @@
 
 <h2 id="link-field">Link field</h2>
 
-<p>A link field can hold one or multiple values of type <code>PKTEmbed</code>. To read the value from an item, use:</p>
+<p>A link field can hold one or multiple values of type <code>PKCEmbed</code>. To read the value from an item, use:</p>
 
-<div class="highlight"><pre><code class="objective-c"><span class="n">PKTEmbed</span> <span class="o">*</span><span class="n">link</span> <span class="o">=</span> <span class="n">item</span><span class="p">[</span><span class="s">@&quot;link&quot;</span><span class="p">];</span> <span class="c1">// &#39;link&#39; is a link field</span>
+<div class="highlight"><pre><code class="objective-c"><span class="n">PKCEmbed</span> <span class="o">*</span><span class="n">link</span> <span class="o">=</span> <span class="n">item</span><span class="p">[</span><span class="s">@&quot;link&quot;</span><span class="p">];</span> <span class="c1">// &#39;link&#39; is a link field</span>
 </code></pre></div>
 
-<p>To set it, provide an instance of <code>PKTEmbed</code>:</p>
+<p>To set it, provide an instance of <code>PKCEmbed</code>:</p>
 
-<div class="highlight"><pre><code class="objective-c"><span class="n">PKTEmbed</span> <span class="o">*</span><span class="n">link</span> <span class="o">=</span> <span class="p">...;</span>
+<div class="highlight"><pre><code class="objective-c"><span class="n">PKCEmbed</span> <span class="o">*</span><span class="n">link</span> <span class="o">=</span> <span class="p">...;</span>
 <span class="n">item</span><span class="p">[</span><span class="s">@&quot;link&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">link</span><span class="p">;</span>
 </code></pre></div>
 
 <h2 id="image-field">Image field</h2>
 
-<p>An image field can hold one or multiple values of type <code>PKTFile</code>. To read the value from an item, use:</p>
+<p>An image field can hold one or multiple values of type <code>PKCFile</code>. To read the value from an item, use:</p>
 
-<div class="highlight"><pre><code class="objective-c"><span class="n">PKTFile</span> <span class="o">*</span><span class="n">imageFile</span> <span class="o">=</span> <span class="n">item</span><span class="p">[</span><span class="s">@&quot;photos&quot;</span><span class="p">];</span> <span class="c1">// &#39;photos&#39; is an image field</span>
+<div class="highlight"><pre><code class="objective-c"><span class="n">PKCFile</span> <span class="o">*</span><span class="n">imageFile</span> <span class="o">=</span> <span class="n">item</span><span class="p">[</span><span class="s">@&quot;photos&quot;</span><span class="p">];</span> <span class="c1">// &#39;photos&#39; is an image field</span>
 </code></pre></div>
 
-<p>To set it, provide an instance of <code>PKTFile</code>, for example after uploading an image:</p>
+<p>To set it, provide an instance of <code>PKCFile</code>, for example after uploading an image:</p>
 
-<div class="highlight"><pre><code class="objective-c"><span class="n">PKTFile</span> <span class="o">*</span><span class="n">file</span> <span class="o">=</span> <span class="p">...;</span>
+<div class="highlight"><pre><code class="objective-c"><span class="n">PKCFile</span> <span class="o">*</span><span class="n">file</span> <span class="o">=</span> <span class="p">...;</span>
 <span class="n">item</span><span class="p">[</span><span class="s">@&quot;photos&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">file</span><span class="p">;</span>
 </code></pre></div>
 
 <h2 id="money-field">Money field</h2>
 
-<p>A money field has an amount value in the form of a number, and and a currency string. It is represented by a single value of type <code>PKTMoney</code>. To read the value from an item, use:</p>
+<p>A money field has an amount value in the form of a number, and and a currency string. It is represented by a single value of type <code>PKCMoney</code>. To read the value from an item, use:</p>
 
-<div class="highlight"><pre><code class="objective-c"><span class="n">PKTMoney</span> <span class="o">*</span><span class="n">totalAmount</span> <span class="o">=</span> <span class="n">item</span><span class="p">[</span><span class="s">@&quot;total&quot;</span><span class="p">];</span> <span class="c1">// &#39;total&#39; is a money field</span>
+<div class="highlight"><pre><code class="objective-c"><span class="n">PKCMoney</span> <span class="o">*</span><span class="n">totalAmount</span> <span class="o">=</span> <span class="n">item</span><span class="p">[</span><span class="s">@&quot;total&quot;</span><span class="p">];</span> <span class="c1">// &#39;total&#39; is a money field</span>
 </code></pre></div>
 
-<p>To set it, provide an instance of <code>PKTMoney</code>:</p>
+<p>To set it, provide an instance of <code>PKCMoney</code>:</p>
 
-<div class="highlight"><pre><code class="objective-c"><span class="n">PKTMoney</span> <span class="o">*</span><span class="n">totalAmount</span> <span class="o">=</span> <span class="p">...;</span>
+<div class="highlight"><pre><code class="objective-c"><span class="n">PKCMoney</span> <span class="o">*</span><span class="n">totalAmount</span> <span class="o">=</span> <span class="p">...;</span>
 <span class="n">item</span><span class="p">[</span><span class="s">@&quot;total&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">totalAmount</span><span class="p">;</span>
 </code></pre></div>
 
@@ -217,16 +215,16 @@
 
 <h2 id="duration-field">Duration field</h2>
 
-<p>A duration field value is described by three components; hours, minutes and seconds, which is represented by the value class <code>PKTDuration</code>. The field holds a single value of type <code>PKTDuration</code>. To read the value from an item, use:</p>
+<p>A duration field value is described by three components; hours, minutes and seconds, which is represented by the value class <code>PKCDuration</code>. The field holds a single value of type <code>PKCDuration</code>. To read the value from an item, use:</p>
 
-<div class="highlight"><pre><code class="objective-c"><span class="n">PKTDuration</span> <span class="o">*</span><span class="n">timeSpent</span> <span class="o">=</span> <span class="n">item</span><span class="p">[</span><span class="s">@&quot;time_spent&quot;</span><span class="p">];</span> <span class="c1">// &#39;time_spent&#39; is a duration field</span>
+<div class="highlight"><pre><code class="objective-c"><span class="n">PKCDuration</span> <span class="o">*</span><span class="n">timeSpent</span> <span class="o">=</span> <span class="n">item</span><span class="p">[</span><span class="s">@&quot;time_spent&quot;</span><span class="p">];</span> <span class="c1">// &#39;time_spent&#39; is a duration field</span>
 </code></pre></div>
 
-<p>To set it, provide an instance of <code>PKTDuration</code>:</p>
+<p>To set it, provide an instance of <code>PKCDuration</code>:</p>
 
-<div class="highlight"><pre><code class="objective-c"><span class="n">item</span><span class="p">[</span><span class="s">@&quot;total&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">PKTDuration</span> <span class="n">alloc</span><span class="p">]</span> <span class="n">initWithHours</span><span class="o">:</span><span class="mi">3</span> <span class="n">minutes</span><span class="o">:</span><span class="mi">20</span> <span class="n">seconds</span><span class="o">:</span><span class="mi">12</span><span class="p">];</span>
+<div class="highlight"><pre><code class="objective-c"><span class="n">item</span><span class="p">[</span><span class="s">@&quot;total&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">PKCDuration</span> <span class="n">alloc</span><span class="p">]</span> <span class="n">initWithHours</span><span class="o">:</span><span class="mi">3</span> <span class="n">minutes</span><span class="o">:</span><span class="mi">20</span> <span class="n">seconds</span><span class="o">:</span><span class="mi">12</span><span class="p">];</span>
 <span class="c1">// or...</span>
-<span class="n">item</span><span class="p">[</span><span class="s">@&quot;total&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">PKTDuration</span> <span class="n">alloc</span><span class="p">]</span> <span class="n">initWithTotalSeconds</span><span class="o">:</span><span class="mi">3645</span><span class="p">];</span>
+<span class="n">item</span><span class="p">[</span><span class="s">@&quot;total&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">PKCDuration</span> <span class="n">alloc</span><span class="p">]</span> <span class="n">initWithTotalSeconds</span><span class="o">:</span><span class="mi">3645</span><span class="p">];</span>
 </code></pre></div>
 
       </main>

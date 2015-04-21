@@ -2,7 +2,7 @@
 <html>
   <head>
     <link href="/favicon.ico" rel="shortcut icon" sizes="16x16 32x32 64x64" />
-    <title>PodioKit • The Objective-C SDK for Podio</title>
+    <title>Podio Platform Kit • The Objective-C SDK for Podio Platform</title>
     <link rel="stylesheet" href="/css/normalize.css">
     <link rel="stylesheet" href="/css/syntax.css">
     <link rel="stylesheet" href="/css/style.css">
@@ -22,18 +22,16 @@
             <li class=""><a href="/files">Working with files</a></li>
             <li class=""><a href="/comments">Working with comments</a></li>
             <li class=""><a href="/debug">Debugging &amp; errors</a></li>
-            <li class=""><a href="/samples">Sample code &amp; apps</a></li>
-            <li class=""><a href="/changelog">Release notes</a></li>
           </ul>
         </nav>
-        <p>You have found PodioKit, the official Objective-C SDK for <a href="https://developers.podio.com/">Podio</a>. It works with both iOS and Mac OS X.</p>
+        <p>You have found Podio Platform Kit, the official Objective-C SDK for <a href="https://platform.podio.com/">Podio Platform</a>. It works with both iOS and Mac OS X.</p>
         <p>
-          <a href="https://travis-ci.org/podio/podio-objc"><img src="https://travis-ci.org/podio/podio-objc.png?branch=master" alt="Build Status"></a>
+          <a href="https://travis-ci.org/podio/podio-objc-platform"><img src="https://travis-ci.org/podio/podio-objc.png?branch=master" alt="Build Status"></a>
         </p>
-        <p>For help post on <a href="http://stackoverflow.com/questions/tagged/podio">Stack Overflow</a> and tag with <b>podio</b>. For bugs <a href="https://github.com/podio/podio-objc/issues">create an issue on GitHub</a>.</p>
+        <p>For help post on <a href="http://stackoverflow.com/questions/tagged/podio">Stack Overflow</a> and tag with <b>podio</b>. For bugs <a href="https://github.com/podio/podio-objc-platform/issues">create an issue on GitHub</a>.</p>
         <ul class="buttons">
-          <li><a class="download" href="https://github.com/podio/podio-objc/releases">Download</a></li>
-          <li><a class="github" href="https://github.com/podio/podio-objc">GitHub</a></li>
+          <li><a class="download" href="https://github.com/podio/podio-objc-platform/releases">Download</a></li>
+          <li><a class="github" href="https://github.com/podio/podio-objc-platform">GitHub</a></li>
         </ul>
       </header>
       <main>
@@ -41,37 +39,37 @@
 
 <p>Sometimes only relying on in-memory data is not enough. For example, you might want to persist fetched Podio content to disk across application launches.</p>
 
-<p>All domain objects in PodioKit inherits from <code>PKTModel</code>. This class is conforms to the <code>NSCoding</code> protocol, meaning every subclass can be serialized, for example using <code>NSKeyedArchiver</code>/<code>NSKeyedUnarchiver</code>. Using PodioKit in your application, this gives you a lot of flexibility on how to persist these domain objects should you find the need.</p>
+<p>All domain objects in PodioPlatformKit inherits from <code>PKCModel</code>. This class is conforms to the <code>NSCoding</code> protocol, meaning every subclass can be serialized, for example using <code>NSKeyedArchiver</code>/<code>NSKeyedUnarchiver</code>. Using PodioPlatformKit in your application, this gives you a lot of flexibility on how to persist these domain objects should you find the need.</p>
 
-<p>For convenience, PodioKit provides a very simple key/value solution for storing objects conforming to <code>NSCoding</code> on disk with the <code>PKTDatastore</code> class.</p>
+<p>For convenience, PodioPlatformKit provides a very simple key/value solution for storing objects conforming to <code>NSCoding</code> on disk with the <code>PKCDatastore</code> class.</p>
 
-<h2 id="using-pktdatastore">Using PKTDatastore</h2>
+<h2 id="using-pkcdatastore">Using PKCDatastore</h2>
 
-<p><code>PKTDatastore</code> is a thread-safe, disk based key/value store. It can persist any object conforming to <code>NSCoding</code> and does so by simply archiving it to disk on a background thread. It also contains its own internal caching mechanism to avoid hitting the disk on every access. This internal cache will, on iOS only, be cleared if a low memory warning is issued.</p>
+<p><code>PKCDatastore</code> is a thread-safe, disk based key/value store. It can persist any object conforming to <code>NSCoding</code> and does so by simply archiving it to disk on a background thread. It also contains its own internal caching mechanism to avoid hitting the disk on every access. This internal cache will, on iOS only, be cleared if a low memory warning is issued.</p>
 
-<p>To use <code>PKTDatastore</code>, you can either use the singleton instance or create your own store:</p>
+<p>To use <code>PKCDatastore</code>, you can either use the singleton instance or create your own store:</p>
 
-<div class="highlight"><pre><code class="objective-c"><span class="n">PKTDatastore</span> <span class="o">*</span><span class="n">store</span> <span class="o">=</span> <span class="p">[</span><span class="n">PKTDatastore</span> <span class="n">sharedStore</span><span class="p">];</span>
+<div class="highlight"><pre><code class="objective-c"><span class="n">PKCDatastore</span> <span class="o">*</span><span class="n">store</span> <span class="o">=</span> <span class="p">[</span><span class="n">PKCDatastore</span> <span class="n">sharedStore</span><span class="p">];</span>
 <span class="c1">// or...</span>
-<span class="n">PKTDatastore</span> <span class="o">*</span><span class="n">store</span> <span class="o">=</span> <span class="p">[</span><span class="n">PKTDatastore</span> <span class="n">storeWithName</span><span class="o">:</span><span class="s">@&quot;MyStore&quot;</span><span class="p">];</span>
+<span class="n">PKCDatastore</span> <span class="o">*</span><span class="n">store</span> <span class="o">=</span> <span class="p">[</span><span class="n">PKCDatastore</span> <span class="n">storeWithName</span><span class="o">:</span><span class="s">@&quot;MyStore&quot;</span><span class="p">];</span>
 </code></pre></div>
 
 <p>The latter will create a seperate location on disk where all objects will be stored. To store an object for a specific key, use the <code>storeObject:forKey:</code> method or subscripting:</p>
 
 <div class="highlight"><pre><code class="objective-c"><span class="n">NSArray</span> <span class="o">*</span><span class="n">numbers</span> <span class="o">=</span> <span class="p">@[</span><span class="mi">@1</span><span class="p">,</span> <span class="mi">@2</span><span class="p">,</span> <span class="mi">@3</span><span class="p">];</span>
 
-<span class="p">[[</span><span class="n">PKTDatastore</span> <span class="n">sharedStore</span><span class="p">]</span> <span class="n">storeObject</span><span class="o">:</span><span class="n">numbers</span> <span class="n">forKey</span><span class="o">:</span><span class="s">@&quot;MyNumbers&quot;</span><span class="p">];</span>
+<span class="p">[[</span><span class="n">PKCDatastore</span> <span class="n">sharedStore</span><span class="p">]</span> <span class="n">storeObject</span><span class="o">:</span><span class="n">numbers</span> <span class="n">forKey</span><span class="o">:</span><span class="s">@&quot;MyNumbers&quot;</span><span class="p">];</span>
 <span class="c1">// or...</span>
-<span class="p">[</span><span class="n">PKTDatastore</span> <span class="n">sharedStore</span><span class="p">][</span><span class="s">@&quot;MyNumbers&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">numbers</span><span class="p">;</span>
+<span class="p">[</span><span class="n">PKCDatastore</span> <span class="n">sharedStore</span><span class="p">][</span><span class="s">@&quot;MyNumbers&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">numbers</span><span class="p">;</span>
 </code></pre></div>
 
-<p>To retrieve an object from the store, you can use either the synchronous <code>storedObjectForKey:</code> or the asynchronous <code>fetchStoredObjectForKey:</code>. We encourage using the latter to keep your application responsive and istead register a completion handler on the <code>PKTAsyncTask</code> returned from the method:</p>
+<p>To retrieve an object from the store, you can use either the synchronous <code>storedObjectForKey:</code> or the asynchronous <code>fetchStoredObjectForKey:</code>. We encourage using the latter to keep your application responsive and istead register a completion handler on the <code>PKCAsyncTask</code> returned from the method:</p>
 
-<div class="highlight"><pre><code class="objective-c"><span class="n">NSArray</span> <span class="o">*</span><span class="n">numbers</span> <span class="o">=</span> <span class="p">[[</span><span class="n">PKTDatastore</span> <span class="n">sharedStore</span><span class="p">]</span> <span class="n">storedObjectForKey</span><span class="o">:</span><span class="s">@&quot;MyNumbers&quot;</span><span class="p">];</span>
+<div class="highlight"><pre><code class="objective-c"><span class="n">NSArray</span> <span class="o">*</span><span class="n">numbers</span> <span class="o">=</span> <span class="p">[[</span><span class="n">PKCDatastore</span> <span class="n">sharedStore</span><span class="p">]</span> <span class="n">storedObjectForKey</span><span class="o">:</span><span class="s">@&quot;MyNumbers&quot;</span><span class="p">];</span>
 
 <span class="c1">// or...</span>
 
-<span class="p">[[</span><span class="n">PKTDatastore</span> <span class="n">sharedStore</span><span class="p">]</span> <span class="n">fetchStoredObjectForKey</span><span class="o">:</span><span class="s">@&quot;MyNumbers&quot;</span><span class="p">]</span> <span class="n">onComplete</span><span class="o">:^</span><span class="p">(</span><span class="n">NSArray</span> <span class="o">*</span><span class="n">numbers</span><span class="p">,</span> <span class="n">NSError</span> <span class="o">*</span><span class="n">error</span><span class="p">)</span> <span class="o">^</span><span class="p">{</span>
+<span class="p">[[</span><span class="n">PKCDatastore</span> <span class="n">sharedStore</span><span class="p">]</span> <span class="n">fetchStoredObjectForKey</span><span class="o">:</span><span class="s">@&quot;MyNumbers&quot;</span><span class="p">]</span> <span class="n">onComplete</span><span class="o">:^</span><span class="p">(</span><span class="n">NSArray</span> <span class="o">*</span><span class="n">numbers</span><span class="p">,</span> <span class="n">NSError</span> <span class="o">*</span><span class="n">error</span><span class="p">)</span> <span class="o">^</span><span class="p">{</span>
   <span class="c1">// Use the numbers...</span>
 <span class="p">}];</span>
 </code></pre></div>

@@ -5,12 +5,12 @@ layout: default
 
 ## Add a comment
 
-Podio supports commenting on many things including items, tasks, status posts etc. To add a new comment, use the methods provided by the `PKTComment` class:
+Podio supports commenting on many things including items, tasks, status posts etc. To add a new comment, use the methods provided by the `PKCComment` class:
 
 {% highlight objective-c %}
-PKTAsyncTask *task = [PKTComment addCommentForObjectWithText:@"My insightful comment" referenceID:1234 referenceType:PKTReferenceTypeItem];
+PKCAsyncTask *task = [PKCComment addCommentForObjectWithText:@"My insightful comment" referenceID:1234 referenceType:PKCReferenceTypeItem];
 
-[task onComplete:^(PKTComment *comment, NSError *error) {
+[task onComplete:^(PKCComment *comment, NSError *error) {
   if (!error) {
     NSLog(@"Comment posted with ID: %@", @(comment.commentID));
   }

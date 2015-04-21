@@ -10,55 +10,55 @@ layout: default
 There are mupltiple types of fields in an app. A field supports a single or multiple values depending on its type. The available field types and their supported values are:
 
 * **Text**: Single value of `NSString`
-* **Category**: Multiple values of `NSNumber` (the option ID) or `PKTCategoryOption`
-* **Date**: Single value of `PKTDateRange` or an `NSDate` representing the start date and time
-* **Relationship**: Multiple values of `PKTItem`
-* **Contact**: Multiple value of `PKTProfile`
+* **Category**: Multiple values of `NSNumber` (the option ID) or `PKCCategoryOption`
+* **Date**: Single value of `PKCDateRange` or an `NSDate` representing the start date and time
+* **Relationship**: Multiple values of `PKCItem`
+* **Contact**: Multiple value of `PKCProfile`
 * **Number**: Single value of `NSNumber`
-* **Link**: Single value of `PKTEmbed`
-* **Image**: Multiple values of `PKTFile`
-* **Money**: Single value of `PKTMoney`
+* **Link**: Single value of `PKCEmbed`
+* **Image**: Multiple values of `PKCFile`
+* **Money**: Single value of `PKCMoney`
 * **Progress**: Single value of `NSNumber` (value between 0-100)
 * **Calculation**: Single value of `NSDictionary` (read-only)
 * **Map**: Single value of `NSString`
-* **Duration**: Single value of `PKTDuration`
+* **Duration**: Single value of `PKCDuration`
 
-To fetch an item, use the class method on `PKTItem`:
+To fetch an item, use the class method on `PKCItem`:
 
 {% highlight objective-c %}
-[[PKTItem fetchItemWithID:1234] onComplete:^(PKTItem *item, NSError *error) {
+[[PKCItem fetchItemWithID:1234] onComplete:^(PKCItem *item, NSError *error) {
   if (!error) {
     NSLog(@"Fetched item with ID: %@", @(item.itemID));
   }
 }];
 {% endhighlight %}
 
-To fetch a list of items in an app, there is another handy method on `PKTItem`:
+To fetch a list of items in an app, there is another handy method on `PKCItem`:
 
 {% highlight objective-c %}
-[[PKTItem fetchItemsInAppWithID:1234 offset:0 limit:30] onComplete:^(NSArray *items, NSUInteger filteredCount, NSUInteger totalCount, NSError *error) {
+[[PKCItem fetchItemsInAppWithID:1234 offset:0 limit:30] onComplete:^(NSArray *items, NSUInteger filteredCount, NSUInteger totalCount, NSError *error) {
   if (!error) {
     NSLog(@"Fetched %@ items out of a total of @%", @(filteredCount), @(totalCount));
   }
 }];
 {% endhighlight %}
 
-To access the values of an item, you can either use the `-valueForField:(NSString *)externalID` method on `PKTItem`, or use subscripting directly:
+To access the values of an item, you can either use the `-valueForField:(NSString *)externalID` method on `PKCItem`, or use subscripting directly:
 
 {% highlight objective-c %}
-PKTItem *item = ...
+PKCItem *item = ...
 
-PKTMoney *amount = item[@"amount"];
+PKCMoney *amount = item[@"amount"];
 // Is equivalient to
-PKTMoney *amount2 = [item valueForField:@"amount"];
+PKCMoney *amount2 = [item valueForField:@"amount"];
 {% endhighlight %}
 
 The same works for updating field values:
 
 {% highlight objective-c %}
-PKTItem *item = ...
+PKCItem *item = ...
 
-PKTMoney *amount = [PKTMoney alloc] initWithAmount:@123 currency:@"USD"];
+PKCMoney *amount = [PKCMoney alloc] initWithAmount:@123 currency:@"USD"];
 
 item[@"amount"] = amount;
 // Is equivalient to:
@@ -67,14 +67,14 @@ item[@"amount"] = amount;
 
 ## Creating a new item
 
-To create an item, simply use the class methods on `PKTItem`:
+To create an item, simply use the class methods on `PKCItem`:
 
 {% highlight objective-c %}
-PKTItem *item = [PKTItem itemForAppWithID:1234];
+PKCItem *item = [PKCItem itemForAppWithID:1234];
 item[@"title"] = @"My first item";
 item[@"description"] = @"This is my first item of many.";
 
-[[item save] onComplete:^(PKTResponse *response, NSError *error) {
+[[item save] onComplete:^(PKCResponse *response, NSError *error) {
   if (!error) {
     NSLog(@"Item saved with ID: %@", @(item.itemID));
   } else {
@@ -85,4 +85,4 @@ item[@"description"] = @"This is my first item of many.";
 
 ## Updating an existing item
 
-To update an item, use the same `save` method as described in *Creating a new item* above. PodioKit will know if the item already exists and needs to be created, or if it should only be updated.
+To update an item, use the same `save` method as described in *Creating a new item* above. PodioPlatformKit will know if the item already exists and needs to be created, or if it should only be updated.

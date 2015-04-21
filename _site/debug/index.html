@@ -2,7 +2,7 @@
 <html>
   <head>
     <link href="/favicon.ico" rel="shortcut icon" sizes="16x16 32x32 64x64" />
-    <title>PodioKit • The Objective-C SDK for Podio</title>
+    <title>Podio Platform Kit • The Objective-C SDK for Podio Platform</title>
     <link rel="stylesheet" href="/css/normalize.css">
     <link rel="stylesheet" href="/css/syntax.css">
     <link rel="stylesheet" href="/css/style.css">
@@ -22,24 +22,22 @@
             <li class=""><a href="/files">Working with files</a></li>
             <li class=""><a href="/comments">Working with comments</a></li>
             <li class=""><a href="/debug">Debugging &amp; errors</a></li>
-            <li class=""><a href="/samples">Sample code &amp; apps</a></li>
-            <li class=""><a href="/changelog">Release notes</a></li>
           </ul>
         </nav>
-        <p>You have found PodioKit, the official Objective-C SDK for <a href="https://developers.podio.com/">Podio</a>. It works with both iOS and Mac OS X.</p>
+        <p>You have found Podio Platform Kit, the official Objective-C SDK for <a href="https://platform.podio.com/">Podio Platform</a>. It works with both iOS and Mac OS X.</p>
         <p>
-          <a href="https://travis-ci.org/podio/podio-objc"><img src="https://travis-ci.org/podio/podio-objc.png?branch=master" alt="Build Status"></a>
+          <a href="https://travis-ci.org/podio/podio-objc-platform"><img src="https://travis-ci.org/podio/podio-objc.png?branch=master" alt="Build Status"></a>
         </p>
-        <p>For help post on <a href="http://stackoverflow.com/questions/tagged/podio">Stack Overflow</a> and tag with <b>podio</b>. For bugs <a href="https://github.com/podio/podio-objc/issues">create an issue on GitHub</a>.</p>
+        <p>For help post on <a href="http://stackoverflow.com/questions/tagged/podio">Stack Overflow</a> and tag with <b>podio</b>. For bugs <a href="https://github.com/podio/podio-objc-platform/issues">create an issue on GitHub</a>.</p>
         <ul class="buttons">
-          <li><a class="download" href="https://github.com/podio/podio-objc/releases">Download</a></li>
-          <li><a class="github" href="https://github.com/podio/podio-objc">GitHub</a></li>
+          <li><a class="download" href="https://github.com/podio/podio-objc-platform/releases">Download</a></li>
+          <li><a class="github" href="https://github.com/podio/podio-objc-platform">GitHub</a></li>
         </ul>
       </header>
       <main>
         <h1 id="debugging--errors">Debugging &amp; Errors</h1>
 
-<p>Error handling in PodioKit follows the normal Cocoa error handling patterns, which means it uses exceptions for programmatic errors and <code>NSError</code> for runtime errors. For errors that occur during a network requests, the error is provided in the <code>PKTRequestCompletionBlock</code> callback together with the <a href="https://github.com/podio/podio-objc/blob/master/PodioKit/Core/PKTResponse.h">PKTResponse</a> object.</p>
+<p>Error handling in PodioPlatformKit follows the normal Cocoa error handling patterns, which means it uses exceptions for programmatic errors and <code>NSError</code> for runtime errors. For errors that occur during a network requests, the error is provided in the <code>PKCRequestCompletionBlock</code> callback together with the <a href="https://github.com/podio/podio-objc/blob/master/PodioPlatformKit/Core/PKCResponse.h">PKCResponse</a> object.</p>
 
 <p>You can inspect the <code>statusCode</code>  and <code>body</code> properties of the response object to determine if the error was a client or server side error.</p>
 

@@ -2,7 +2,7 @@
 <html>
   <head>
     <link href="/favicon.ico" rel="shortcut icon" sizes="16x16 32x32 64x64" />
-    <title>PodioKit • The Objective-C SDK for Podio</title>
+    <title>Podio Platform Kit • The Objective-C SDK for Podio Platform</title>
     <link rel="stylesheet" href="/css/normalize.css">
     <link rel="stylesheet" href="/css/syntax.css">
     <link rel="stylesheet" href="/css/style.css">
@@ -22,18 +22,16 @@
             <li class=""><a href="/files">Working with files</a></li>
             <li class=""><a href="/comments">Working with comments</a></li>
             <li class=""><a href="/debug">Debugging &amp; errors</a></li>
-            <li class=""><a href="/samples">Sample code &amp; apps</a></li>
-            <li class=""><a href="/changelog">Release notes</a></li>
           </ul>
         </nav>
-        <p>You have found PodioKit, the official Objective-C SDK for <a href="https://developers.podio.com/">Podio</a>. It works with both iOS and Mac OS X.</p>
+        <p>You have found Podio Platform Kit, the official Objective-C SDK for <a href="https://platform.podio.com/">Podio Platform</a>. It works with both iOS and Mac OS X.</p>
         <p>
-          <a href="https://travis-ci.org/podio/podio-objc"><img src="https://travis-ci.org/podio/podio-objc.png?branch=master" alt="Build Status"></a>
+          <a href="https://travis-ci.org/podio/podio-objc-platform"><img src="https://travis-ci.org/podio/podio-objc.png?branch=master" alt="Build Status"></a>
         </p>
-        <p>For help post on <a href="http://stackoverflow.com/questions/tagged/podio">Stack Overflow</a> and tag with <b>podio</b>. For bugs <a href="https://github.com/podio/podio-objc/issues">create an issue on GitHub</a>.</p>
+        <p>For help post on <a href="http://stackoverflow.com/questions/tagged/podio">Stack Overflow</a> and tag with <b>podio</b>. For bugs <a href="https://github.com/podio/podio-objc-platform/issues">create an issue on GitHub</a>.</p>
         <ul class="buttons">
-          <li><a class="download" href="https://github.com/podio/podio-objc/releases">Download</a></li>
-          <li><a class="github" href="https://github.com/podio/podio-objc">GitHub</a></li>
+          <li><a class="download" href="https://github.com/podio/podio-objc-platform/releases">Download</a></li>
+          <li><a class="github" href="https://github.com/podio/podio-objc-platform">GitHub</a></li>
         </ul>
       </header>
       <main>
@@ -47,52 +45,52 @@
 
 <ul>
   <li><strong>Text</strong>: Single value of <code>NSString</code></li>
-  <li><strong>Category</strong>: Multiple values of <code>NSNumber</code> (the option ID) or <code>PKTCategoryOption</code></li>
-  <li><strong>Date</strong>: Single value of <code>PKTDateRange</code> or an <code>NSDate</code> representing the start date and time</li>
-  <li><strong>Relationship</strong>: Multiple values of <code>PKTItem</code></li>
-  <li><strong>Contact</strong>: Multiple value of <code>PKTProfile</code></li>
+  <li><strong>Category</strong>: Multiple values of <code>NSNumber</code> (the option ID) or <code>PKCCategoryOption</code></li>
+  <li><strong>Date</strong>: Single value of <code>PKCDateRange</code> or an <code>NSDate</code> representing the start date and time</li>
+  <li><strong>Relationship</strong>: Multiple values of <code>PKCItem</code></li>
+  <li><strong>Contact</strong>: Multiple value of <code>PKCProfile</code></li>
   <li><strong>Number</strong>: Single value of <code>NSNumber</code></li>
-  <li><strong>Link</strong>: Single value of <code>PKTEmbed</code></li>
-  <li><strong>Image</strong>: Multiple values of <code>PKTFile</code></li>
-  <li><strong>Money</strong>: Single value of <code>PKTMoney</code></li>
+  <li><strong>Link</strong>: Single value of <code>PKCEmbed</code></li>
+  <li><strong>Image</strong>: Multiple values of <code>PKCFile</code></li>
+  <li><strong>Money</strong>: Single value of <code>PKCMoney</code></li>
   <li><strong>Progress</strong>: Single value of <code>NSNumber</code> (value between 0-100)</li>
   <li><strong>Calculation</strong>: Single value of <code>NSDictionary</code> (read-only)</li>
   <li><strong>Map</strong>: Single value of <code>NSString</code></li>
-  <li><strong>Duration</strong>: Single value of <code>PKTDuration</code></li>
+  <li><strong>Duration</strong>: Single value of <code>PKCDuration</code></li>
 </ul>
 
-<p>To fetch an item, use the class method on <code>PKTItem</code>:</p>
+<p>To fetch an item, use the class method on <code>PKCItem</code>:</p>
 
-<div class="highlight"><pre><code class="objective-c"><span class="p">[[</span><span class="n">PKTItem</span> <span class="n">fetchItemWithID</span><span class="o">:</span><span class="mi">1234</span><span class="p">]</span> <span class="n">onComplete</span><span class="o">:^</span><span class="p">(</span><span class="n">PKTItem</span> <span class="o">*</span><span class="n">item</span><span class="p">,</span> <span class="n">NSError</span> <span class="o">*</span><span class="n">error</span><span class="p">)</span> <span class="p">{</span>
+<div class="highlight"><pre><code class="objective-c"><span class="p">[[</span><span class="n">PKCItem</span> <span class="n">fetchItemWithID</span><span class="o">:</span><span class="mi">1234</span><span class="p">]</span> <span class="n">onComplete</span><span class="o">:^</span><span class="p">(</span><span class="n">PKCItem</span> <span class="o">*</span><span class="n">item</span><span class="p">,</span> <span class="n">NSError</span> <span class="o">*</span><span class="n">error</span><span class="p">)</span> <span class="p">{</span>
   <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">error</span><span class="p">)</span> <span class="p">{</span>
     <span class="n">NSLog</span><span class="p">(</span><span class="s">@&quot;Fetched item with ID: %@&quot;</span><span class="p">,</span> <span class="p">@(</span><span class="n">item</span><span class="p">.</span><span class="n">itemID</span><span class="p">));</span>
   <span class="p">}</span>
 <span class="p">}];</span>
 </code></pre></div>
 
-<p>To fetch a list of items in an app, there is another handy method on <code>PKTItem</code>:</p>
+<p>To fetch a list of items in an app, there is another handy method on <code>PKCItem</code>:</p>
 
-<div class="highlight"><pre><code class="objective-c"><span class="p">[[</span><span class="n">PKTItem</span> <span class="n">fetchItemsInAppWithID</span><span class="o">:</span><span class="mi">1234</span> <span class="n">offset</span><span class="o">:</span><span class="mi">0</span> <span class="n">limit</span><span class="o">:</span><span class="mi">30</span><span class="p">]</span> <span class="n">onComplete</span><span class="o">:^</span><span class="p">(</span><span class="n">NSArray</span> <span class="o">*</span><span class="n">items</span><span class="p">,</span> <span class="n">NSUInteger</span> <span class="n">filteredCount</span><span class="p">,</span> <span class="n">NSUInteger</span> <span class="n">totalCount</span><span class="p">,</span> <span class="n">NSError</span> <span class="o">*</span><span class="n">error</span><span class="p">)</span> <span class="p">{</span>
+<div class="highlight"><pre><code class="objective-c"><span class="p">[[</span><span class="n">PKCItem</span> <span class="n">fetchItemsInAppWithID</span><span class="o">:</span><span class="mi">1234</span> <span class="n">offset</span><span class="o">:</span><span class="mi">0</span> <span class="n">limit</span><span class="o">:</span><span class="mi">30</span><span class="p">]</span> <span class="n">onComplete</span><span class="o">:^</span><span class="p">(</span><span class="n">NSArray</span> <span class="o">*</span><span class="n">items</span><span class="p">,</span> <span class="n">NSUInteger</span> <span class="n">filteredCount</span><span class="p">,</span> <span class="n">NSUInteger</span> <span class="n">totalCount</span><span class="p">,</span> <span class="n">NSError</span> <span class="o">*</span><span class="n">error</span><span class="p">)</span> <span class="p">{</span>
   <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">error</span><span class="p">)</span> <span class="p">{</span>
     <span class="n">NSLog</span><span class="p">(</span><span class="s">@&quot;Fetched %@ items out of a total of @%&quot;</span><span class="p">,</span> <span class="p">@(</span><span class="n">filteredCount</span><span class="p">),</span> <span class="p">@(</span><span class="n">totalCount</span><span class="p">));</span>
   <span class="p">}</span>
 <span class="p">}];</span>
 </code></pre></div>
 
-<p>To access the values of an item, you can either use the <code>-valueForField:(NSString *)externalID</code> method on <code>PKTItem</code>, or use subscripting directly:</p>
+<p>To access the values of an item, you can either use the <code>-valueForField:(NSString *)externalID</code> method on <code>PKCItem</code>, or use subscripting directly:</p>
 
-<div class="highlight"><pre><code class="objective-c"><span class="n">PKTItem</span> <span class="o">*</span><span class="n">item</span> <span class="o">=</span> <span class="p">...</span>
+<div class="highlight"><pre><code class="objective-c"><span class="n">PKCItem</span> <span class="o">*</span><span class="n">item</span> <span class="o">=</span> <span class="p">...</span>
 
-<span class="n">PKTMoney</span> <span class="o">*</span><span class="n">amount</span> <span class="o">=</span> <span class="n">item</span><span class="p">[</span><span class="s">@&quot;amount&quot;</span><span class="p">];</span>
+<span class="n">PKCMoney</span> <span class="o">*</span><span class="n">amount</span> <span class="o">=</span> <span class="n">item</span><span class="p">[</span><span class="s">@&quot;amount&quot;</span><span class="p">];</span>
 <span class="c1">// Is equivalient to</span>
-<span class="n">PKTMoney</span> <span class="o">*</span><span class="n">amount2</span> <span class="o">=</span> <span class="p">[</span><span class="n">item</span> <span class="n">valueForField</span><span class="o">:</span><span class="s">@&quot;amount&quot;</span><span class="p">];</span>
+<span class="n">PKCMoney</span> <span class="o">*</span><span class="n">amount2</span> <span class="o">=</span> <span class="p">[</span><span class="n">item</span> <span class="n">valueForField</span><span class="o">:</span><span class="s">@&quot;amount&quot;</span><span class="p">];</span>
 </code></pre></div>
 
 <p>The same works for updating field values:</p>
 
-<div class="highlight"><pre><code class="objective-c"><span class="n">PKTItem</span> <span class="o">*</span><span class="n">item</span> <span class="o">=</span> <span class="p">...</span>
+<div class="highlight"><pre><code class="objective-c"><span class="n">PKCItem</span> <span class="o">*</span><span class="n">item</span> <span class="o">=</span> <span class="p">...</span>
 
-<span class="n">PKTMoney</span> <span class="o">*</span><span class="n">amount</span> <span class="o">=</span> <span class="p">[</span><span class="n">PKTMoney</span> <span class="n">alloc</span><span class="p">]</span> <span class="n">initWithAmount</span><span class="o">:</span><span class="mi">@123</span> <span class="n">currency</span><span class="o">:</span><span class="s">@&quot;USD&quot;</span><span class="p">];</span>
+<span class="n">PKCMoney</span> <span class="o">*</span><span class="n">amount</span> <span class="o">=</span> <span class="p">[</span><span class="n">PKCMoney</span> <span class="n">alloc</span><span class="p">]</span> <span class="n">initWithAmount</span><span class="o">:</span><span class="mi">@123</span> <span class="n">currency</span><span class="o">:</span><span class="s">@&quot;USD&quot;</span><span class="p">];</span>
 
 <span class="n">item</span><span class="p">[</span><span class="s">@&quot;amount&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">amount</span><span class="p">;</span>
 <span class="c1">// Is equivalient to:</span>
@@ -101,13 +99,13 @@
 
 <h2 id="creating-a-new-item">Creating a new item</h2>
 
-<p>To create an item, simply use the class methods on <code>PKTItem</code>:</p>
+<p>To create an item, simply use the class methods on <code>PKCItem</code>:</p>
 
-<div class="highlight"><pre><code class="objective-c"><span class="n">PKTItem</span> <span class="o">*</span><span class="n">item</span> <span class="o">=</span> <span class="p">[</span><span class="n">PKTItem</span> <span class="n">itemForAppWithID</span><span class="o">:</span><span class="mi">1234</span><span class="p">];</span>
+<div class="highlight"><pre><code class="objective-c"><span class="n">PKCItem</span> <span class="o">*</span><span class="n">item</span> <span class="o">=</span> <span class="p">[</span><span class="n">PKCItem</span> <span class="n">itemForAppWithID</span><span class="o">:</span><span class="mi">1234</span><span class="p">];</span>
 <span class="n">item</span><span class="p">[</span><span class="s">@&quot;title&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s">@&quot;My first item&quot;</span><span class="p">;</span>
 <span class="n">item</span><span class="p">[</span><span class="s">@&quot;description&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s">@&quot;This is my first item of many.&quot;</span><span class="p">;</span>
 
-<span class="p">[[</span><span class="n">item</span> <span class="n">save</span><span class="p">]</span> <span class="n">onComplete</span><span class="o">:^</span><span class="p">(</span><span class="n">PKTResponse</span> <span class="o">*</span><span class="n">response</span><span class="p">,</span> <span class="n">NSError</span> <span class="o">*</span><span class="n">error</span><span class="p">)</span> <span class="p">{</span>
+<span class="p">[[</span><span class="n">item</span> <span class="n">save</span><span class="p">]</span> <span class="n">onComplete</span><span class="o">:^</span><span class="p">(</span><span class="n">PKCResponse</span> <span class="o">*</span><span class="n">response</span><span class="p">,</span> <span class="n">NSError</span> <span class="o">*</span><span class="n">error</span><span class="p">)</span> <span class="p">{</span>
   <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">error</span><span class="p">)</span> <span class="p">{</span>
     <span class="n">NSLog</span><span class="p">(</span><span class="s">@&quot;Item saved with ID: %@&quot;</span><span class="p">,</span> <span class="p">@(</span><span class="n">item</span><span class="p">.</span><span class="n">itemID</span><span class="p">));</span>
   <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
@@ -118,7 +116,7 @@
 
 <h2 id="updating-an-existing-item">Updating an existing item</h2>
 
-<p>To update an item, use the same <code>save</code> method as described in <em>Creating a new item</em> above. PodioKit will know if the item already exists and needs to be created, or if it should only be updated.</p>
+<p>To update an item, use the same <code>save</code> method as described in <em>Creating a new item</em> above. PodioPlatformKit will know if the item already exists and needs to be created, or if it should only be updated.</p>
 
       </main>
     </div>

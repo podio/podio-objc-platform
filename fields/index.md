@@ -19,7 +19,7 @@ An app item can have any number of fields, and any field can have one or multipl
 * Map
 * Duration
 
-Below, we will cover each of them in detail and how to use them. Fields values can be easily accessed by Objective-C subscripting syntax, or through the `valueForField:` or `setValue:forField:` methods on `PKTItem`.
+Below, we will cover each of them in detail and how to use them. Fields values can be easily accessed by Objective-C subscripting syntax, or through the `valueForField:` or `setValue:forField:` methods on `PKCItem`.
 
 ## Text field
 
@@ -37,16 +37,16 @@ item[@"title"] = @"This is a new item title";
 
 ## Category field
 
-A category field can hold one or multiple values of type `PKTCategoryOption`. To read the value from an item, use:
+A category field can hold one or multiple values of type `PKCCategoryOption`. To read the value from an item, use:
 
 {% highlight objective-c %}
-PKTCategoryOption *option = item[@"status"]; // 'status' is a category field
+PKCCategoryOption *option = item[@"status"]; // 'status' is a category field
 {% endhighlight %}
 
-To set it, you can either provide an instance of `PKTCategoryOption` or optionally provide the option ID directly if you know it:
+To set it, you can either provide an instance of `PKCCategoryOption` or optionally provide the option ID directly if you know it:
 
 {% highlight objective-c %}
-PKTCategoryOption *option = ...;
+PKCCategoryOption *option = ...;
 item[@"status"] = option;             // Give the full option object
 // or...
 item[@"status"] = @(option.optionID)  // Only give the option ID
@@ -54,16 +54,16 @@ item[@"status"] = @(option.optionID)  // Only give the option ID
 
 ## Date field
 
-A date represents a single date or a start/end date pair, represented by a single value of type `PKTDateRange`. To read the value from an item, use:
+A date represents a single date or a start/end date pair, represented by a single value of type `PKCDateRange`. To read the value from an item, use:
 
 {% highlight objective-c %}
-PKTDateRange *dates = item[@"meeting_date"]; // 'meeting_date' is a date field
+PKCDateRange *dates = item[@"meeting_date"]; // 'meeting_date' is a date field
 {% endhighlight %}
 
-To set it, you can either provide an instance of `PKTDateRange`, which supports both start and end dates, or optionally provide only an `NSDate` which will then be used as the start date for the field:
+To set it, you can either provide an instance of `PKCDateRange`, which supports both start and end dates, or optionally provide only an `NSDate` which will then be used as the start date for the field:
 
 {% highlight objective-c %}
-PKTDateRange *dates = ...;
+PKCDateRange *dates = ...;
 item[@"meeting_date"] = dates;         // Give the full date range object
 // or...
 item[@"meeting_date"] = [NSDate date]; // Give the current time as an NSDate directly
@@ -71,37 +71,37 @@ item[@"meeting_date"] = [NSDate date]; // Give the current time as an NSDate dir
 
 ## Relationship field
 
-A relationship field hold references to a single or multiple referenced items. It support a single or multiple values of type `PKTItem`. To read the value from an item, use:
+A relationship field hold references to a single or multiple referenced items. It support a single or multiple values of type `PKCItem`. To read the value from an item, use:
 
 {% highlight objective-c %}
-PKTItem *item = item[@"project"]; // 'project' is a relationship field
+PKCItem *item = item[@"project"]; // 'project' is a relationship field
 {% endhighlight %}
 
-You can set it by providing an instance of `PKTItem`:
+You can set it by providing an instance of `PKCItem`:
 
 {% highlight objective-c %}
-PKTItem *referencedItem = ...;
+PKCItem *referencedItem = ...;
 item[@"project"] = referencedItem;
 
 // or add multiple...
-PKTItem *referencedItem2 = ...;
-PKTItem *referencedItem3 = ...;
+PKCItem *referencedItem2 = ...;
+PKCItem *referencedItem3 = ...;
 [item addValue:referencedItem2 forField:@"project"];
 [item addValue:referencedItem3 forField:@"project"];
 {% endhighlight %}
 
 ## Contact field
 
-A contact field can hold one or multiple values of type `PKTProfile`. To read the value from an item, use:
+A contact field can hold one or multiple values of type `PKCProfile`. To read the value from an item, use:
 
 {% highlight objective-c %}
-PKTProfile *contact = item[@"responsible"]; // 'responsible' is a contact field
+PKCProfile *contact = item[@"responsible"]; // 'responsible' is a contact field
 {% endhighlight %}
 
-To set it, provide an instance of `PKTProfile`:
+To set it, provide an instance of `PKCProfile`:
 
 {% highlight objective-c %}
-PKTProfile *contact = ...;
+PKCProfile *contact = ...;
 item[@"responsible"] = contact;
 {% endhighlight %}
 
@@ -121,46 +121,46 @@ item[@"total"] = @1234.43;
 
 ## Link field
 
-A link field can hold one or multiple values of type `PKTEmbed`. To read the value from an item, use:
+A link field can hold one or multiple values of type `PKCEmbed`. To read the value from an item, use:
 
 {% highlight objective-c %}
-PKTEmbed *link = item[@"link"]; // 'link' is a link field
+PKCEmbed *link = item[@"link"]; // 'link' is a link field
 {% endhighlight %}
 
-To set it, provide an instance of `PKTEmbed`:
+To set it, provide an instance of `PKCEmbed`:
 
 {% highlight objective-c %}
-PKTEmbed *link = ...;
+PKCEmbed *link = ...;
 item[@"link"] = link;
 {% endhighlight %}
 
 ## Image field
 
-An image field can hold one or multiple values of type `PKTFile`. To read the value from an item, use:
+An image field can hold one or multiple values of type `PKCFile`. To read the value from an item, use:
 
 {% highlight objective-c %}
-PKTFile *imageFile = item[@"photos"]; // 'photos' is an image field
+PKCFile *imageFile = item[@"photos"]; // 'photos' is an image field
 {% endhighlight %}
 
-To set it, provide an instance of `PKTFile`, for example after uploading an image:
+To set it, provide an instance of `PKCFile`, for example after uploading an image:
 
 {% highlight objective-c %}
-PKTFile *file = ...;
+PKCFile *file = ...;
 item[@"photos"] = file;
 {% endhighlight %}
 
 ## Money field
 
-A money field has an amount value in the form of a number, and and a currency string. It is represented by a single value of type `PKTMoney`. To read the value from an item, use:
+A money field has an amount value in the form of a number, and and a currency string. It is represented by a single value of type `PKCMoney`. To read the value from an item, use:
 
 {% highlight objective-c %}
-PKTMoney *totalAmount = item[@"total"]; // 'total' is a money field
+PKCMoney *totalAmount = item[@"total"]; // 'total' is a money field
 {% endhighlight %}
 
-To set it, provide an instance of `PKTMoney`:
+To set it, provide an instance of `PKCMoney`:
 
 {% highlight objective-c %}
-PKTMoney *totalAmount = ...;
+PKCMoney *totalAmount = ...;
 item[@"total"] = totalAmount;
 {% endhighlight %}
 
@@ -203,16 +203,16 @@ item[@"location"] = @"Vesterbrogade 34, Copenhagen";
 
 ## Duration field
 
-A duration field value is described by three components; hours, minutes and seconds, which is represented by the value class `PKTDuration`. The field holds a single value of type `PKTDuration`. To read the value from an item, use:
+A duration field value is described by three components; hours, minutes and seconds, which is represented by the value class `PKCDuration`. The field holds a single value of type `PKCDuration`. To read the value from an item, use:
 
 {% highlight objective-c %}
-PKTDuration *timeSpent = item[@"time_spent"]; // 'time_spent' is a duration field
+PKCDuration *timeSpent = item[@"time_spent"]; // 'time_spent' is a duration field
 {% endhighlight %}
 
-To set it, provide an instance of `PKTDuration`:
+To set it, provide an instance of `PKCDuration`:
 
 {% highlight objective-c %}
-item[@"total"] = [PKTDuration alloc] initWithHours:3 minutes:20 seconds:12];
+item[@"total"] = [PKCDuration alloc] initWithHours:3 minutes:20 seconds:12];
 // or...
-item[@"total"] = [PKTDuration alloc] initWithTotalSeconds:3645];
+item[@"total"] = [PKCDuration alloc] initWithTotalSeconds:3645];
 {% endhighlight %}
