@@ -1,0 +1,138 @@
+<!doctype html>
+<html>
+  <head>
+    <link href="/favicon.ico" rel="shortcut icon" sizes="16x16 32x32 64x64" />
+    <title>PodioKit • The Objective-C SDK for Podio</title>
+    <link rel="stylesheet" href="/css/normalize.css">
+    <link rel="stylesheet" href="/css/syntax.css">
+    <link rel="stylesheet" href="/css/style.css">
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <nav>
+          <ul>
+            <li class=""><a href="/">Getting started</a></li>
+            <li class=""><a href="/async">Basic principles of asynchronicity</a></li>
+            <li class=""><a href="/authentication">Authentication &amp; session management</a></li>
+            <li class=""><a href="/storage">Local storage  &amp; caching</a></li>
+            <li class=""><a href="/push">Push</a></li>
+            <li class=""><a href="/items">Working with apps &amp; items</a></li>
+            <li class=""><a href="/fields">Item field examples</a></li>
+            <li class=""><a href="/files">Working with files</a></li>
+            <li class=""><a href="/comments">Working with comments</a></li>
+            <li class=""><a href="/debug">Debugging &amp; errors</a></li>
+            <li class=""><a href="/samples">Sample code &amp; apps</a></li>
+            <li class=""><a href="/changelog">Release notes</a></li>
+          </ul>
+        </nav>
+        <p>You have found PodioKit, the official Objective-C SDK for <a href="https://developers.podio.com/">Podio</a>. It works with both iOS and Mac OS X.</p>
+        <p>
+          <a href="https://travis-ci.org/podio/podio-objc"><img src="https://travis-ci.org/podio/podio-objc.png?branch=master" alt="Build Status"></a>
+        </p>
+        <p>For help post on <a href="http://stackoverflow.com/questions/tagged/podio">Stack Overflow</a> and tag with <b>podio</b>. For bugs <a href="https://github.com/podio/podio-objc/issues">create an issue on GitHub</a>.</p>
+        <ul class="buttons">
+          <li><a class="download" href="https://github.com/podio/podio-objc/releases">Download</a></li>
+          <li><a class="github" href="https://github.com/podio/podio-objc">GitHub</a></li>
+        </ul>
+      </header>
+      <main>
+        <h1 id="authentication--session-management">Authentication &amp; Session Management</h1>
+
+<p>The Podio API supports multiple ways of authenticating a client. PodioKit provides three primary options:</p>
+
+<ul>
+  <li>Authenticate with user/password</li>
+  <li>Authenticate as an app</li>
+  <li>Automatically authenticate as an app</li>
+</ul>
+
+<p>Each of them are described below. The client is considered to be authenticated once it has obtained a valid OAuth2 token. You can easily check if the client is authenticated:</p>
+
+<div class="highlight"><pre><code class="objective-c"><span class="k">if</span> <span class="p">([</span><span class="n">PodioKit</span> <span class="n">isAuthenticated</span><span class="p">])</span> <span class="p">{</span>
+  <span class="c1">// The client is authenticated</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>The authentication state is kept by a singleton instance of <a href="https://github.com/podio/podio-objc/blob/master/PodioKit/Core/PKTClient.h"><code>PKTClient</code></a>.</p>
+
+<p>Whenver the the authentication state of the client changes, meaning the token is updated, the <code>PKTClientAuthenticationStateDidChangeNotification</code> notification is posted. This can be useful to observe for changing the state of your UI or show a login screen.</p>
+
+<p>For more details about authentication and the Podio API, more information can be found <a href="https://developers.podio.com/authentication">here</a>.</p>
+
+<h2 id="authenticate-as-a-user">Authenticate as a user</h2>
+
+<p>This option is great when you want to have every user of your client app to log in using their own Podio account and as such have access to the content of their entire Podio account.</p>
+
+<p>Here is how to authenticate as a user:</p>
+
+<div class="highlight"><pre><code class="objective-c"><span class="n">PKTAsyncTask</span> <span class="o">*</span><span class="n">authTask</span> <span class="o">=</span> <span class="p">[</span><span class="n">PodioKit</span> <span class="n">authenticateAsUserWithEmail</span><span class="o">:</span><span class="s">@&quot;myname@mydomain.com&quot;</span> <span class="n">password</span><span class="o">:</span><span class="s">@&quot;p4$$w0rD&quot;</span><span class="p">];</span>
+
+<span class="p">[</span><span class="n">authTask</span> <span class="n">onComplete</span><span class="o">:^</span><span class="p">(</span><span class="n">PKTResponse</span> <span class="o">*</span><span class="n">response</span><span class="p">,</span> <span class="n">NSError</span> <span class="o">*</span><span class="n">error</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">error</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// Successfully authenticated</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="c1">// Failed to authenticate, double check your credentials</span>
+  <span class="p">}</span>
+<span class="p">}];</span>
+</code></pre></div>
+
+<h2 id="authenticate-as-an-app">Authenticate as an app</h2>
+
+<p>Most people know that you can log into Podio using an email and password. But it is also possible for any individual Podio app to authenticate as itself using it’s unique app token. The client will then be able to create new items within that app, without ever being authenticated as a user.</p>
+
+<p>This option is useful when you want any user of your client app to interact with the same <a href="https://developers.podio.com/doc/applications">Podio app</a>, regardless of who they are. This might be an app that you our someone else created.</p>
+
+<p>The major benefit of this method is that it requires no log in action for the user of your app, as they will be authenticated as the Podio app itself.</p>
+
+<p>To authenticate as the app, you need to find the app ID and token for your app. When logged into Podio, navigate to the app and click the small wrench icon in the top right. Then click “Developer” in the drop down menu that appears. That should take you to a page showing your app’s ID and token.</p>
+
+<p>Here is an example of how to authenticate as an app:</p>
+
+<div class="highlight"><pre><code class="objective-c"><span class="n">PKTAsyncTask</span> <span class="o">*</span><span class="n">authTask</span> <span class="o">=</span> <span class="p">[</span><span class="n">PodioKit</span> <span class="n">authenticateAsAppWithID</span><span class="o">:</span><span class="mi">123456</span> <span class="n">token</span><span class="o">:</span><span class="s">@&quot;my-app-token&quot;</span><span class="p">];</span>
+
+<span class="p">[</span><span class="n">authTask</span> <span class="n">onComplete</span><span class="o">:^</span><span class="p">(</span><span class="n">PKTResponse</span> <span class="o">*</span><span class="n">response</span><span class="p">,</span> <span class="n">NSError</span> <span class="o">*</span><span class="n">error</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">error</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// Successfully authenticated</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="c1">// Failed to authenticate, double check your credentials</span>
+  <span class="p">}</span>
+<span class="p">}];</span>
+</code></pre></div>
+
+<h2 id="automatically-authenticate-as-an-app">Automatically authenticate as an app</h2>
+
+<p>Instead of explicitly authenticating as an app as shown in the example above, there is also an option to automatically authenticate as an app. This means that instead of choosing yourself when to authenticate the app, you simply provide PodioKit with the app ID and token and it will automatatically handle the authentication step when you try to make an API operation. This is usually the prefereable option as it means you do not have to handle the authentication step yourself. To authenticate automatically, just make the following call after setting up your API key and secret:</p>
+
+<div class="highlight"><pre><code class="objective-c"><span class="p">[</span><span class="n">PodioKit</span> <span class="n">authenticateAutomaticallyAsAppWithID</span><span class="o">:</span><span class="mi">123456</span> <span class="n">token</span><span class="o">:</span><span class="s">@&quot;my-app-token&quot;</span><span class="p">];</span>
+</code></pre></div>
+
+<h2 id="saving-and-restoring-a-session-across-app-launches">Saving and restoring a session across app launches</h2>
+
+<p>If your app is terminated, the shared <code>PKTClient</code> instance will no longer have a token once your app is re-launced. This means that if you want the previous user session to live on, you need to store the authentication token in the Keychain when it changes and restore it from the Keychain when the app is re-launced. Luckily, PodioKit can take care of that for you!</p>
+
+<p>PodioKit provides a protocol called <code>PKTTokenStore</code> and a concrete class <code>PKTKeychainTokenStore</code> which stores the token in the iOS or OS X Keychain. All you need to do is add the following line after your call to <code>-setupWithAPIKey:secret:</code> in <code>-application:didFinishLaunchingWithOptions:</code>:</p>
+
+<div class="highlight"><pre><code class="objective-c"><span class="p">...</span>
+<span class="c1">// [PodioKit setupWithAPIKey:PODIO_API_KEY secret:];</span>
+
+<span class="p">[</span><span class="n">PodioKit</span> <span class="n">automaticallyStoreTokenInKeychainForCurrentApp</span><span class="p">];</span>
+<span class="c1">// or</span>
+<span class="p">[</span><span class="n">PodioKit</span> <span class="n">automaticallyStoreTokenInKeychainForServiceWithName</span><span class="o">:</span><span class="s">@&quot;MyApp&quot;</span><span class="p">];</span>
+<span class="p">...</span>
+</code></pre></div>
+
+<p>This line takes care of configuring the shared <code>PKTClient</code> instance with an instance of <code>PKTKeychainTokenStore</code> and restores any previous token from the Keychain. If you want to expliticly restore the token, you can call the <code>restoreTokenIfNeeded</code> method on <code>PKTClient</code> directly. If you are feeling real adventurous you can even implement your own class conforming to <code>PKTTokenStore</code> to store the token anywhere other than the Keychain. You can then set the <code>tokenStore</code> property on the shared <code>PKTClient</code> instance like:</p>
+
+<div class="highlight"><pre><code class="objective-c"><span class="p">...</span>
+<span class="p">[</span><span class="n">PKTClient</span> <span class="n">currentClient</span><span class="p">].</span><span class="n">tokenStore</span> <span class="o">=</span> <span class="p">[[</span><span class="n">MYOwnTokenStore</span> <span class="n">alloc</span><span class="p">]</span> <span class="n">init</span><span class="p">];</span>
+<span class="p">[[</span><span class="n">PKTClient</span> <span class="n">currentClient</span><span class="p">]</span> <span class="n">restoreTokenIfNeeded</span><span class="p">];</span>
+<span class="p">...</span>
+</code></pre></div>
+
+<p>Note that we would not recommend doing this as the Keychain is the most secure container available.</p>
+
+      </main>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,87 @@
+<!doctype html>
+<html>
+  <head>
+    <link href="/favicon.ico" rel="shortcut icon" sizes="16x16 32x32 64x64" />
+    <title>PodioKit • The Objective-C SDK for Podio</title>
+    <link rel="stylesheet" href="/css/normalize.css">
+    <link rel="stylesheet" href="/css/syntax.css">
+    <link rel="stylesheet" href="/css/style.css">
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <nav>
+          <ul>
+            <li class=""><a href="/">Getting started</a></li>
+            <li class=""><a href="/async">Basic principles of asynchronicity</a></li>
+            <li class=""><a href="/authentication">Authentication &amp; session management</a></li>
+            <li class=""><a href="/storage">Local storage  &amp; caching</a></li>
+            <li class=""><a href="/push">Push</a></li>
+            <li class=""><a href="/items">Working with apps &amp; items</a></li>
+            <li class=""><a href="/fields">Item field examples</a></li>
+            <li class=""><a href="/files">Working with files</a></li>
+            <li class=""><a href="/comments">Working with comments</a></li>
+            <li class=""><a href="/debug">Debugging &amp; errors</a></li>
+            <li class=""><a href="/samples">Sample code &amp; apps</a></li>
+            <li class=""><a href="/changelog">Release notes</a></li>
+          </ul>
+        </nav>
+        <p>You have found PodioKit, the official Objective-C SDK for <a href="https://developers.podio.com/">Podio</a>. It works with both iOS and Mac OS X.</p>
+        <p>
+          <a href="https://travis-ci.org/podio/podio-objc"><img src="https://travis-ci.org/podio/podio-objc.png?branch=master" alt="Build Status"></a>
+        </p>
+        <p>For help post on <a href="http://stackoverflow.com/questions/tagged/podio">Stack Overflow</a> and tag with <b>podio</b>. For bugs <a href="https://github.com/podio/podio-objc/issues">create an issue on GitHub</a>.</p>
+        <ul class="buttons">
+          <li><a class="download" href="https://github.com/podio/podio-objc/releases">Download</a></li>
+          <li><a class="github" href="https://github.com/podio/podio-objc">GitHub</a></li>
+        </ul>
+      </header>
+      <main>
+        <h1 id="podiokit">PodioKit</h1>
+
+<p>PodioKit is a Objective-C client library for the <a href="https://developers.podio.com/">Podio API</a>. It provides an easy way to integrate your iOS and Mac apps with Podio.</p>
+
+<p>PodioKit uses ARC and is based on NSURLSession, which means it supports iOS 7.0 and above and Mac OS X 10.9 and above.</p>
+
+<p>PodioKit 2.0 is being actively developed by the Podio team. We encourage contributions through pull requests and the Github issue tracker.</p>
+
+<h2 id="integrate-with-an-existing-project">Integrate with an existing project</h2>
+
+<p>We encourage you to use <a href="http://cocoapods.org/">CocoaPods</a> to integrate PodioKit with your existing project. CocoaPods is a dependency manager for Objective-C that makes dealing with code dependencies easy.</p>
+
+<p>First, make sure your have integrated CocoaPods with your project. If you have not, there is a great guide available <a href="http://guides.cocoapods.org/using/getting-started.html">here</a>.</p>
+
+<p>Once CocoaPods is installed, add the following line to your <code>Podfile</code> to use the latest stable release:</p>
+
+<p><code>ruby
+pod 'PodioKit', '~&gt; 2.0'
+</code></p>
+
+<p>Then run <code>pod install</code> from the command line.</p>
+
+<p>After that you are ready to start using PodioKit by importing the main header file where you would like to use it in your project:</p>
+
+<p><code>objective-c
+#import &lt;PodioKit/PodioKit.h&gt;
+</code></p>
+
+<p>Alternatively, you can use the PodioKit source directly by copying the source files directly into your Xcode project.</p>
+
+<h2 id="using-podiokit">Using PodioKit</h2>
+
+<h3 id="set-up-your-api-key-and-secret">Set up your API key and secret</h3>
+
+<p>Before you can talk to the Podio API, you need to generate a new API key for your application from your “Account Settings” page on Podio. You can find instructions on how to do so <a href="https://developers.podio.com/api-key">here</a>.</p>
+
+<p>Once you have a key and secret, you need to configure PodioKit to use it. To do so, add the following code to your <code>application:didFinishLaunching:options:</code> method in your app delegate:</p>
+
+<p><code>objective-c
+[PodioKit setupWithAPIKey:@"my-api-key" secret:@"my-secret"];
+</code></p>
+
+<p>That’s it! You are now good to start using PodioKit.</p>
+
+      </main>
+    </div>
+  </body>
+</html>
