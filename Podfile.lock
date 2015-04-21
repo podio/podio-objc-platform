@@ -1,25 +1,16 @@
 PODS:
   - DDCometClient (1.0.1)
-  - FXReachability (1.3)
-  - PodioKitCore (1.0):
-    - PodioKitCore/Common (= 1.0)
-  - PodioKitCore/Common (1.0)
-  - PodioKitCore/Push (1.0):
-    - DDCometClient (~> 1.0)
-    - FXReachability (~> 1.3)
-    - PodioKitCore/Common
+  - Expecta (0.4.2)
+  - FXReachability (1.3.1)
 
 DEPENDENCIES:
-  - PodioKitCore (from `Vendor/podio-objc-core`)
-  - PodioKitCore/Push (from `Vendor/podio-objc-core`)
-
-EXTERNAL SOURCES:
-  PodioKitCore:
-    :path: Vendor/podio-objc-core
+  - DDCometClient (~> 1.0)
+  - Expecta
+  - FXReachability (~> 1.3)
 
 SPEC CHECKSUMS:
-  DDCometClient: 6fc6115df9b5cd4d7481dd20fba53ed5f1feb8d6
-  FXReachability: 228b601247952766994ab610b0a83b6c30c64559
-  PodioKitCore: f794bdef3848cd9a3c4b450c14764cb2c61e7484
+  DDCometClient: d0c81b6bf58c74b29114440b94ef7027f450f055
+  Expecta: 78b4e8b0c8291fa4524d7f74016b6065c2e391ec
+  FXReachability: 1d9a83617474f2a4e1b53c11a13ec4337428c126
 
-COCOAPODS: 0.35.0
+COCOAPODS: 0.36.3

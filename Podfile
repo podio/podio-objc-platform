@@ -1,8 +1,12 @@
-# Uncomment this line to define a global platform for your project
-# platform :ios, '6.0'
+source 'https://github.com/CocoaPods/Specs.git'
 
 target 'PodioPlatformKit' do
+  
+  pod 'DDCometClient',  '~> 1.0'
+  pod 'FXReachability', '~> 1.3'
+end
 
-  pod 'PodioKitCore', :path => 'Vendor/podio-objc-core'
-  pod 'PodioKitCore/Push', :path => 'Vendor/podio-objc-core'
+target 'PodioPlatformKitTests' do
+
+  pod 'Expecta'
 end
