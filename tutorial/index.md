@@ -14,7 +14,7 @@ This tutorial will walk your through the steps of creating a simple bug tracker 
 6. Uploading and associating files to a bug
 7. Collaborating with other users on bugs
 
-## 1. Creating a "Bug" template using the Podio Platform console
+## 1. Creating a "Bug" template using Podio Platform console
 
 //Shared with JS example?
 
@@ -143,3 +143,38 @@ PPKFile.uploadWithPath("/tmp/some/local/file.docx")
 Here we can clearly see the advantages of using `PKCAsyncTask` to manage our completion handlers. We can use the `pipe(_)` combinator function to use the result of the first request to create a subsequent request, and only handle the success case if they both succeed or the error case if either of them fail. More details on `PKTCAsyncTask` and combinator functions are available in the [Basic principles of asynchronicity](/async) section.
 
 ## 7. Collaborating with other users on bugs
+
+Like with any good bug tracking tool, you want to be able to assign and re-assign a bug to any member of your team. As mentioned previously, people on Podio Platform are organized into *spaces* togheter with the items they can collaborate around. So in order to get your team on board with using your bug tracker, you need to do two things:
+
+1. Add your team members to the space
+2. Change the assignee of your bug to be a member of the space
+
+The first step can be easily accomplished using the following call:
+
+{% highlight Swift %}
+let user: PPKProfile = .. // A PKKProfile instance retrieved from somewhere
+
+PPKSpace.addMemberWithProfileID(profile.profileID)
+  .onSuccess { (response: PKCResponse!) in
+    println("Member successfully added")
+  }
+  .onError { error in
+    println("Failed to fetch bugs: \(error.localizedDescription)")
+  }
+{% endhighlight %}
+
+To assign the new member to a specific bug, just update the "assignee" field of the bug:
+
+{% highlight Swift %}  
+bug["assignee"] = profile
+// or
+bug["assignee"] = profile.profileID
+
+bug.save()
+  .onSuccess { (savedBug: PPKItem!) in
+    println("Bug saved")
+  }
+  .onError { error in
+    println("Failed to save bug: \(error.localizedDescription)")
+  }
+{% endhighlight %}
