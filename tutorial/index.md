@@ -4,11 +4,11 @@ layout: default
 
 # Tutorial: Building a Bug Tracker App
 
-This tutorial will walk your through the steps of creating a simple bug tracker app using Podio Platform. It will, using the SDK demonstrate the following features of Podio Platform:
+This tutorial will walk your through the steps of creating a simple bug tracker app using Podio Platform. Using the SDK this page will demonstrate the following features of Podio Platform:
 
 1. Creating a "Bug" template using the Podio Platform console
 2. Configuring PodioPlatformKit SDK for your Xcode project
-3. Sign in as a user of your app
+3. Signing in as a user of your app
 4. Creating new "bugs" using your Bugs template
 5. Listing and filtering of bugs
 6. Uploading and associating files to a bug
@@ -18,7 +18,7 @@ This tutorial will walk your through the steps of creating a simple bug tracker 
 
 //Shared with JS example?
 
-The first step is to set up a *project* for your app in the [Podio Platform console](https://platform.podio.com) and integrate the SDK into your Xcode project. You can find instructions on how to do this under ["Getting Started"](/).
+The first step is to set up a *project* for your app in the [Podio Platform console](https://platform.podio.com) and integrate the SDK into your Xcode project. You can find instructions on how to do this under ["Getting Started"](/podio-objc-platform/).
 
 ## 2. Configuring PodioPlatformKit SDK for your Xcode project
 
@@ -35,13 +35,13 @@ func application(application: UIApplication, didFinishLaunchingWithOptions launc
 
 **Line 1** configures PodioPlatformKit to be able to uniquely identify your app for any calls to Podio Platform.
 
-**Line 2** is an optional configuration call that will make sure that whenever a user is authenticated, the session information (such as access tokens) will be persisted in the excrypted system Keychain automatically, and restored upon application launch. This takes away the manual effort of saving/restoring sessions.
+**Line 2** is an optional configuration call. It ensures that whenever a user is authenticated, the session information (such as access tokens) will be persisted in the excrypted system Keychain automatically, and restored upon application launch. This takes away the manual effort of saving/restoring sessions.
 
-## 3. Sign in as a user of your app
+## 3. Signing in as a user of your app
 
-In order to identify the user of your application, you typically want them to sign into your app. The common way to do this is to present a form with two fields; one for the email and one for the password. Because Podio Platform is based on the users Podio identity, all that a user of your application needs to do is provide their Podio username and password through such a login form.
+In order to identify the user of your application, you typically want them to sign into your app. The common way to do this is to present a form with two fields: One for the email and one for the password. Because Podio Platform is based on the users Podio identity, all that a user of your application needs to do is provide their Podio username and password through such a login form.
 
-Once the user has provided their credentials, you can initiate a session in PodioPlatformKit by simply calling the `authenticateAsUserWithEmail(_:password)` method:
+Once the user has provided their credentials, you can initiate a session in PodioPlatformKit by calling the `authenticateAsUserWithEmail(_:password)` method:
 
 {% highlight Swift %}
 @IBAction func login(sender: UIButton!) {
@@ -123,7 +123,7 @@ PPKItem.fetchAllMatchingFilter(filter)
 
 ## 6. Uploading and associating files to a bug
 
-Podio Platform provides support for uploading, storing and associating files with any items created. For our bug tracker, we might want to associate a test file needed to reproduce the bug. Associating a file with a bug is extremely easy using PodioPlatformKit, and is a two step process; first you need to upload the file, then make the associating with the bug item:
+Podio Platform provides support for uploading, storing and associating files with any items created. For our bug tracker, we might want to associate a test file needed to reproduce the bug. Associating a file with a bug is extremely easy using PodioPlatformKit, and is a two step process; first you need to upload the file, then attach it to the bug item:
 
 {% highlight Swift %}
 PPKFile.uploadWithPath("/tmp/some/local/file.docx")
