@@ -18,7 +18,7 @@ This tutorial will walk your through the steps of creating a simple bug tracker 
 
 //Shared with JS example?
 
-The first step is to set up a *project* for your app in the [Podio Platform console](https://platform.podio.com) and integrate the SDK into your Xcode project. You can find instructions on how to do this under ["Getting Started"](/podio-objc-platform/).
+The first step is to set up a *project* for your app in the [Podio Platform console](https://platform.podio.com) and integrate the SDK into your Xcode project. You can find instructions on how to do this under ["Getting Started"]({{ site.baseurl}}/).
 
 ## 2. Configuring PodioPlatformKit SDK for your Xcode project
 
@@ -58,7 +58,7 @@ Once the user has provided their credentials, you can initiate a session in Podi
 }
 {% endhighlight %}
 
-We can see here that the `authenticateAsUserWithEmail(_:password)` method returns a `PKCAsyncTask` object, onto which we can then register `onSuccess(_)`, `onError(_)` or `onComplete(_)` handlers. This pattern is used throught the SDK, and is explained in greater detail in the [Basic principles of asynchronicity](/async) section.
+We can see here that the `authenticateAsUserWithEmail(_:password)` method returns a `PKCAsyncTask` object, onto which we can then register `onSuccess(_)`, `onError(_)` or `onComplete(_)` handlers. This pattern is used throught the SDK, and is explained in greater detail in the [Basic principles of asynchronicity]({{ site.baseurl}}/async) section.
 
 ## 4. Creating new "bugs" using your Bugs template
 
@@ -140,7 +140,7 @@ PPKFile.uploadWithPath("/tmp/some/local/file.docx")
   }
 {% endhighlight %}
 
-Here we can clearly see the advantages of using `PKCAsyncTask` to manage our completion handlers. We can use the `pipe(_)` combinator function to use the result of the first request to create a subsequent request, and only handle the success case if they both succeed or the error case if either of them fail. More details on `PKTCAsyncTask` and combinator functions are available in the [Basic principles of asynchronicity](/async) section.
+Here we can clearly see the advantages of using `PKCAsyncTask` to manage our completion handlers. We can use the `pipe(_)` combinator function to use the result of the first request to create a subsequent request, and only handle the success case if they both succeed or the error case if either of them fail. More details on `PKTCAsyncTask` and combinator functions are available in the [Basic principles of asynchronicity]({{ site.baseurl}}/async) section.
 
 ## 7. Collaborating with other users on bugs
 
