@@ -51,4 +51,4 @@ Once you have a key and secret, you need to configure PodioPlatformKit to use it
 Podio.setupWithAPIKey("my-api-key", secret: "my-secret")
 {% endhighlight %}
 	
-That's it! You are now good to start using PodioPlatformKit.
+That's it! You are now ready to start using PodioPlatformKit. We recommend taking a look at the ["Building a Bug Tracker App"](/tutorial) tutorial as the first step!
