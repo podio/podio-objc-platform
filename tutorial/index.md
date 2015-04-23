@@ -49,7 +49,7 @@ Once the user has provided their credentials, you can initiate a session in Podi
   let password = self.passwordTextField.text;
   
   Podio.authenticateAsUserWithEmail(email, password: password)
-    .onSuccess { (response: PKCResponse!) in
+    .onSuccess { (response: PKTResponse!) in
       println("Successfully logged in")
     }
     .onError { error in
@@ -58,7 +58,7 @@ Once the user has provided their credentials, you can initiate a session in Podi
 }
 {% endhighlight %}
 
-We can see here that `authenticateAsUserWithEmail(_:password)` returns a `PKCAsyncTask` object, onto which we can then register `onSuccess(_)`, `onError(_)` or `onComplete(_)` handlers. This pattern is used throught the SDK, and is explained in greater detail in the [Basic principles of asynchronicity]({{ site.baseurl}}/async) section.
+We can see here that `authenticateAsUserWithEmail(_:password)` returns a `PKTAsyncTask` object, onto which we can then register `onSuccess(_)`, `onError(_)` or `onComplete(_)` handlers. This pattern is used throught the SDK, and is explained in greater detail in the [Basic principles of asynchronicity]({{ site.baseurl}}/async) section.
 
 ## 4. Creating new bugs using your Bug template
 
@@ -131,7 +131,7 @@ PPKFile.uploadWithPath("/tmp/some/local/file.docx")
     // to be optionally used to create the second one
     return file.attachWithReferenceID(bug.itemID, referenceType: .Item)
   }
-  .onSuccess { (response: PKCResponse!) in
+  .onSuccess { (response: PKTResponse!) in
     println("File successfully uploaded and attached!")
   }
   .onError { error in
@@ -139,7 +139,7 @@ PPKFile.uploadWithPath("/tmp/some/local/file.docx")
   }
 {% endhighlight %}
 
-Here we can clearly see the advantages of using `PKCAsyncTask` to manage our completion handlers. We can use the `pipe(_)` combinator function to use the result of the first request to create a subsequent request, and only handle the success case if they both succeed or the error case if either of them fail. More details on `PKTCAsyncTask` and combinator functions are available in the [Basic principles of asynchronicity]({{ site.baseurl}}/async) section.
+Here we can clearly see the advantages of using `PKTAsyncTask` to manage our completion handlers. We can use the `pipe(_)` combinator function to use the result of the first request to create a subsequent request, and only handle the success case if they both succeed or the error case if either of them fail. More details on `PKTCAsyncTask` and combinator functions are available in the [Basic principles of asynchronicity]({{ site.baseurl}}/async) section.
 
 ## 7. Collaborating with other users on bugs
 
@@ -155,7 +155,7 @@ let space: PKKSpace = .. // A PKKSpace instance retrieved from somewhere
 let user: PPKProfile = .. // A PKKProfile instance retrieved from somewhere
 
 space.addMemberWithProfileID(profile.profileID)
-  .onSuccess { (response: PKCResponse!) in
+  .onSuccess { (response: PKTResponse!) in
     println("Member successfully added")
   }
   .onError { error in
@@ -182,8 +182,8 @@ bug.save()
 Another way to collaborate around your items is by adding comments. This is very easy using the `PKTComment` class:
 
 {% highlight Swift %}
-PKCComment.addCommentWithText("This looks great!", referenceID: bug.itemID, referenceType: .Item)
-  .onSuccess { (comment: PKCComment!) in
+PKTComment.addCommentWithText("This looks great!", referenceID: bug.itemID, referenceType: .Item)
+  .onSuccess { (comment: PKTComment!) in
     println("Comment added with ID: \(comment.commentID)")
   }
   .onError { error in
@@ -191,4 +191,4 @@ PKCComment.addCommentWithText("This looks great!", referenceID: bug.itemID, refe
   }
 {% endhighlight %}
 
-Comments on an item can be retrieved from the `comments` property of `PKCItem`.
+Comments on an item can be retrieved from the `comments` property of `PKTItem`.
