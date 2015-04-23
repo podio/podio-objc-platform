@@ -4,7 +4,7 @@ layout: default
 # Basic Principles of Asynchronicity
 
 PodioPlatformKit's main responsibility os making request to the Podio API. To do so, it needs to provide a mean of handling asynchronous 
-method calls. PodioPlatformKit uses a [future](http://en.wikipedia.org/wiki/Futures_and_promises)-based approach where each asynchronous method returns an instance of `PKTAsyncTask`. You can then register callbacks (`onSuccess:`, `onError:` and `onComplete:`) on this tasks that will be called according to the following rules:
+method calls. PodioPlatformKit uses a [future](http://en.wikipedia.org/wiki/Futures_and_promises)-based approach where each asynchronous method returns an instance of `PKTAsyncTask`. You can then register callbacks (`onSuccess(_)`, `onError(_)` and `onComplete(_)`) on this tasks that will be called according to the following rules:
 
 * If the task has not yet completed, the callback will be kept and executed on the main thread upon the completion of the task. Registered callbacks on a task are not guaranteed to be called in the order they were registerd.
 * If the task has alread completed, the callback will be executed immediately with the result of the task.
@@ -13,79 +13,78 @@ method calls. PodioPlatformKit uses a [future](http://en.wikipedia.org/wiki/Futu
 
 To register a callback, you have three options:
 
-The `onSuccess:` method is used to register callbacks to be executed if the task succeeds, meaning it does not generate an error:
+The `onSuccess(_)` method is used to register callbacks to be executed if the task succeeds, meaning it does not generate an error:
 
-{% highlight objective-c %}
-PKTAsyncTask *task = [SomeClass someAsynchronousMethod];
+{% highlight Swift %}
+let task = SomeClass.someAsynchronousMethod()
 
-[task onSuccess:^(PKTResponse *response) {
+task.onSuccess { (response: PKTResponse!) in
   // The task finished successfully
-}];
+}
 {% endhighlight %}
 
-The `onError:` method can be used to register callbacks for the error case:
+The `onError(_)` method can be used to register callbacks for the error case:
 
-{% highlight objective-c %}
-PKTAsyncTask *task = [SomeClass someAsynchronousMethod];
+{% highlight Swift %}
+let task = SomeClass.someAsynchronousMethod()
 
-[task onError:^(NSError *error) {
+task.onSuccess { (error: NSError?) in
   // The task failed and returned an error
-}];
+}
 {% endhighlight %}
 
-If you are interested in both the success and error case at the same time, you can use the `onComplete:` method to register a callback for when either happens:
+If you are interested in both the success and error case at the same time, you can use the `onComplete(_)` method to register a callback for when either happens:
 
-{% highlight objective-c %}
-PKTAsyncTask *task = [SomeClass someAsynchronousMethod];
+{% highlight Swift %}
+let task = SomeClass.someAsynchronousMethod()
 
-[task onComplete:^(PKTResponse *response, NSError *error) {
-  if (!error) {
-    // Task succeeded
-  } else {
+task.onComplete { (response: PKTResponse?, error: NSError?) in
+  if let error = error {
     // Task failed
+  } else {
+    // Task succeeded
   }
 }];
 {% endhighlight %}
 
 The main advantage of modelling asynchronisity with futures is that you can chain tasks together to acheive some things. PodioPlatformKit provides a few combinator methods to combine sub-tasks in to bigger tasks. Consider for example if you first want to upload a task, then attach it to an object. With a callback approach you would have to nest your callback handlers:
 
-{% highlight objective-c %}
-NSData *data = ...; // Some image data
+{% highlight Swift %}
+let data: NSData = ...; // Some image data
 
-[PKTFile uploadWithData:data fileName:@"image.jpg" completion:(PKTFile *file, NSError *error) {
-  if (!error) {
-    [file attachWithReferenceID:1234 referenceType:PKTReferenceTypeItem completion:^(PKTResponse *response, NSError *error) {
-      if (!error) {
-        // Handle success...
+PKTFile.uploadWithData(data, fileName:@"image.jpg", completion: { (file: PKTFile?, error: NSError?) in
+  if let file = file {
+    file.attachWithReferenceID(1234, referenceType: .Item completion: { (response: PKTResponse?, error: NSError?) in 
+      if error == nil {
+        // Handle success
       } else {
-        // Handle failure...
+        // Handle failure
       }
-    }];
+    })
   } else {
-    // Handle failure...
+    // Handle failure
   }
-}];
+})
 {% endhighlight %}
 
-You can see that we have to handle the error case twice. With a task based approach, we can instead use the `pipe:` combinator method which takes a block that generates a new task based on the result of the first task once completed:
+You can see that we have to handle the error case twice. With a task based approach, we can instead use the `pipe(_)` combinator method which takes a block that generates a new task based on the result of the first task once completed:
 
 {% highlight objective-c %}
-NSData *data = ...; // Some image data
+let data: NSData = ...; // Some image data
 
-PKTAsyncTask *uploadTask = [PKTFile uploadWithData:data fileName:@"image.jpg"];
+let task = PKTFile.uploadWithData(data, fileName:@"image.jpg")
+  .pipe { (file: PKTFile?) in
+    return file.attachWithReferenceID(1234, referenceType: .Item)
+}
 
-PKTASyncTask *task = [uploadTask pipe:^PKTAsyncTask *(PKTFile *file) {
-  return [file attachWithReferenceID:1234 referenceType:PKTReferenceTypeItem];
-}];
-
-[task onComplete:^(PKTResponse *response, NSError *error) {
-  if (!error) {
-    // Handle success...
+task.onComplete { (response: PKTResponse?, error: NSError?) in
+  if let error = error {
+    // Handle failure
   } else {
-    // Handle failure...
+    // Handle success
   }
 }];
 
 {% endhighlight %}
 
-Here, we only have to handle the error case once and we do not end up with deeply nested code blocks. There are also other useful combinator methods such as `when:`, `then:` and `map:` available.
+Here, we only have to handle the error case once and we do not end up with deeply nested code blocks. There are also other useful combinator methods such as `when(_)`, `then(_)` and `map(_)` available.
