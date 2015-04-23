@@ -4,7 +4,7 @@ layout: default
 
 # Tutorial: Building a Bug Tracker App
 
-This tutorial will walk your through the steps of creating a simple bug tracker app using Podio Platform. Using the SDK this page will demonstrate the following features of Podio Platform:
+This tutorial will walk your through the steps of creating a simple bug tracker app using Podio Platform. It will, using Swift and PodioPlatformKit, demonstrate some of the possibilities of Podio Platform:
 
 1. Creating a "Bug" template using the Podio Platform console
 2. Configuring PodioPlatformKit SDK for your Xcode project
@@ -14,19 +14,19 @@ This tutorial will walk your through the steps of creating a simple bug tracker 
 6. Uploading and associating files to a bug
 7. Collaborating with other users on bugs
 
-## 1. Creating a "Bug" template using Podio Platform console
+## 1. Creating a "Bug" template using Podio Platform Console
 
 //Shared with JS example?
 
-The first step is to set up a *project* for your app in the [Podio Platform console](https://platform.podio.com) and integrate the SDK into your Xcode project. You can find instructions on how to do this under ["Getting Started"]({{ site.baseurl}}/).
+The first step is to set up a *project* for your app in the [Podio Platform Console](https://platform.podio.com) and integrate the SDK into your Xcode project. You can find instructions on how to do this under ["Getting Started"]({{ site.baseurl}}/).
 
 ## 2. Configuring PodioPlatformKit SDK for your Xcode project
 
-After integrating PodioPlatformKit into your Xcode project using CocoaPods and importing the umbrella header in your Swift bridging, you need to configure PodioPlatformKit using your project API keys for Podio Platform. To do so, add the following code to your `application(_:didFinishLaunchingWithOptions:)` method in your app delegate:
+After integrating PodioPlatformKit with your Xcode project using CocoaPods and importing the PodioPlatformKit umbrella header in your Swift bridging header, you need to configure PodioPlatformKit to use your project API keys for Podio Platform. To do so, add the following lines to your `application(_:didFinishLaunchingWithOptions:)` method in your app delegate:
 
 {% highlight Swift %}
 func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-  Podio.setupWithAPIKey("my-api-key", secret: "my-secret") // 1
+  Podio.setupWithAPIKey("my-project-api-key", secret: "my-project-secret") // 1
   Podio.automaticallyStoreTokenInKeychainForCurrentApp()   // 2
 
   return true
@@ -58,25 +58,24 @@ Once the user has provided their credentials, you can initiate a session in Podi
 }
 {% endhighlight %}
 
-We can see here that the `authenticateAsUserWithEmail(_:password)` method returns a `PKCAsyncTask` object, onto which we can then register `onSuccess(_)`, `onError(_)` or `onComplete(_)` handlers. This pattern is used throught the SDK, and is explained in greater detail in the [Basic principles of asynchronicity]({{ site.baseurl}}/async) section.
+We can see here that `authenticateAsUserWithEmail(_:password)` returns a `PKCAsyncTask` object, onto which we can then register `onSuccess(_)`, `onError(_)` or `onComplete(_)` handlers. This pattern is used throught the SDK, and is explained in greater detail in the [Basic principles of asynchronicity]({{ site.baseurl}}/async) section.
 
-## 4. Creating new "bugs" using your Bugs template
+## 4. Creating new bugs using your Bug template
 
 In order to report bugs from your app, you need to be able to create new bugs from the app. We already set up a "Bug" template, so the only thing we need to do from the client app is to start creating instances of this template, a.k.a the items themselves.
 
-In order to create a new bug, you need to first create a new item:
+In order to create a new bug, you just create an item using the "Bug" template:
 
 {% highlight Swift %}  
 let bug = PPKItem.itemUsingTemplate("Bug")
 println("Bug ID: \(bug.itemID)") // => "Bug ID: 0"
 
-bug["title"] = "Button is not working"                      // Single-line text field
-bug["reproduce_steps"] = "1. Open app\n2. Click button"     // Multi-line text field
-bug["status"] = "Open"                                      // Category field
-bug["priority"] = "High"                                    // Category field
-bug["device"] = "iPhone 6"                                  // Category field
+bug["title"] = "Button is not working"                  // Single-line text field
+bug["reproduce_steps"] = "1. Open app\n2. Click button" // Multi-line text field
+bug["status"] = "Open"                                  // Category field with options "Open" or "Fixed"
+bug["priority"] = "High"                                // Category field with options "High", "Medium", "Low"
 
-// Create the bug
+// Create the bug in a given space
 bug.createInSpace(1234)
   .onSuccess { [weak bug] (savedBug: PPKItem!) in
     println("Bug ID: \(bug.itemID)") // => "Bug ID: 1234"
@@ -86,15 +85,15 @@ bug.createInSpace(1234)
   }
 {% endhighlight %}
 
-If you want to update a particular field of the bug, just update it and call `save()`:
+If you want to update a particular field of the bug, just set a new value and call `save()`:
 
 {% highlight Swift %}  
-// Update the title of the bug
 bug["status"] = "Fixed"
 
 bug.save()
-  .onSuccess { [weak bug] (savedBug: PPKItem!) in
-    println("Bug title: \(bug.title)") // => "Bug title: Button does not respond when tapping"
+  .onSuccess { (savedBug: PPKItem!) in
+    let savedStatus = savedBug["status"]
+    println("Bug status: \(savedStatus)") // => "Bug status: Fixed"
   }
   .onError { error in
     println("Failed to save bug: \(error.localizedDescription)")
@@ -107,7 +106,7 @@ In Podio Platform, items are stored in [spaces](https://platform.podio.com/docs/
 
 To be able to keep track of bugs that needs fixing from within your app, you need to be able to retrieve a list of the existing bugs, but only returning those that have their "status" field set to "Open". 
 
-You can do this using the filtering functionality:
+You can do this using the Podio Platform filtering functionality:
 
 {% highlight Swift %}
 let filter = PPKItemFilter().withCategory("status", text: "Open")
@@ -130,7 +129,7 @@ PPKFile.uploadWithPath("/tmp/some/local/file.docx")
   .pipe { (file: PKKFile!) in
     // pipe() is used to chain operations, by providing the result of the first operation
     // to be optionally used to create the second one
-    return file.attachWithReferenceType(.Item, referenceID: bug.itemID)
+    return file.attachWithReferenceID(bug.itemID, referenceType: .Item)
   }
   .onSuccess { (response: PKCResponse!) in
     println("File successfully uploaded and attached!")
@@ -144,7 +143,7 @@ Here we can clearly see the advantages of using `PKCAsyncTask` to manage our com
 
 ## 7. Collaborating with other users on bugs
 
-Like with any good bug tracking tool, you want to be able to assign and re-assign a bug to any member of your team. As mentioned previously, people on Podio Platform are organized into *spaces* togheter with the items they can collaborate around. So in order to get your team on board with using your bug tracker, you need to do two things:
+Like with any good bug tracking tool, you need your entire team to use it for it to be useful. You want to be able to assign and re-assign a bug to any member of your team and comment on the bug. As mentioned previously, people on Podio Platform are organized into *spaces* together with the items they can collaborate on. So in order to get your team on board with using your bug tracker, you need to do two things:
 
 1. Add your team members to the space
 2. Change the assignee of your bug to be a member of the space
@@ -152,9 +151,10 @@ Like with any good bug tracking tool, you want to be able to assign and re-assig
 The first step can be easily accomplished using the following call:
 
 {% highlight Swift %}
+let space: PKKSpace = .. // A PKKSpace instance retrieved from somewhere
 let user: PPKProfile = .. // A PKKProfile instance retrieved from somewhere
 
-PPKSpace.addMemberWithProfileID(profile.profileID)
+space.addMemberWithProfileID(profile.profileID)
   .onSuccess { (response: PKCResponse!) in
     println("Member successfully added")
   }
@@ -165,7 +165,7 @@ PPKSpace.addMemberWithProfileID(profile.profileID)
 
 To assign the new member to a specific bug, just update the "assignee" field of the bug:
 
-{% highlight Swift %}  
+{% highlight Swift %}
 bug["assignee"] = profile
 // or
 bug["assignee"] = profile.profileID
@@ -178,3 +178,17 @@ bug.save()
     println("Failed to save bug: \(error.localizedDescription)")
   }
 {% endhighlight %}
+
+Another way to collaborate around your items is by adding comments. This is very easy using the `PKTComment` class:
+
+{% highlight Swift %}
+PKCComment.addCommentWithText("This looks great!", referenceID: bug.itemID, referenceType: .Item)
+  .onSuccess { (comment: PKCComment!) in
+    println("Comment added with ID: \(comment.commentID)")
+  }
+  .onError { error in
+    println("Failed to add comment: \(error.localizedDescription)")
+  }
+{% endhighlight %}
+
+Comments on an item can be retrieved from the `comments` property of `PKCItem`.
