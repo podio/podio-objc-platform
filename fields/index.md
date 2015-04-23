@@ -3,7 +3,7 @@ layout: default
 ---
 # Item Field Examples
 
-An app item can have any number of fields, and any field can have one or multiple values depending on the type of field. The following field types are provided by the Podio API:
+An template can have any number of fields and an item contains values for all or some of the fields. An item can have one or multiple values for a given field, depending on the *type* of field. The following field types are provided by Podio Platform:
 
 * Text
 * Category
@@ -19,7 +19,7 @@ An app item can have any number of fields, and any field can have one or multipl
 * Map
 * Duration
 
-Below, we will cover each of them in detail and how to use them. Fields values can be easily accessed by Objective-C subscripting syntax, or through the `valueForField:` or `setValue:forField:` methods on `PKTItem`.
+Below, we will cover each of them in detail and how to use them. Fields values can be easily accessed by Swift subscripting syntax, or through the `valueForField(_)` or `setValue(_:forField:)` methods on `PKTItem`.
 
 ## Text field
 

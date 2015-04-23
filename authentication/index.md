@@ -22,7 +22,7 @@ This option is great when you want to have every user of your client app to log 
 Here is how to authenticate as a user:
 
 {% highlight Swift %}
-let authTask = Podio.authenticateAsUserWithEmail("myname@mydomain.com", password:"p4$$w0rD")
+let task = Podio.authenticateAsUserWithEmail("myname@mydomain.com", password:"p4$$w0rD")
 
 task.onComplete { (response: PKTResponse?, error: NSError?) in
   if let error == error {
