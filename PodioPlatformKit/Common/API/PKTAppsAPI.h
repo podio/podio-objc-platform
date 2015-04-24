@@ -1,15 +1,15 @@
 //
-//  PPKAppsAPI.h
+//  PKTAppsAPI.h
 //  PodioPlatformKit
 //
 //  Created by Sebastian Rehnby on 15/02/15.
 //  Copyright (c) 2015 Citrix Systems, Inc. All rights reserved.
 //
 
-#import "PKCBaseAPI.h"
+#import "PKTBaseAPI.h"
 
-@interface PPKAppsAPI : PKCBaseAPI
+@interface PKTAppsAPI : PKTBaseAPI
 
-+ (PKCRequest *)requestForAppWithID:(NSUInteger)appID;
++ (PKTRequest *)requestForAppWithID:(NSUInteger)appID;
 
 @end
