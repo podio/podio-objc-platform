@@ -9,6 +9,10 @@ PodioPlatformKit uses ARC and is based on NSURLSession, which means it supports 
 
 PodioPlatformKit is still in beta, so we suggest you use the latest code from the master branch. All examples here will be in Swift, but can be translated directly to Objective-C if preferred.
 
+## Getting Started with Podio Platform
+
+In order to get started using Podio Platform, you need to first create a *project* for your app in the [Podio Platform Console](https://platform.podio.com/). After logging into the console using your Podio account email and password, you will find a guide how to set up your project and templates for use with PodioPlatformKit. We encourage you to follow that guide before continuing to the next step on this page.
+
 ## Integrate with an existing project
 
 We encourage you to use [CocoaPods](http://cocoapods.org/) to integrate PodioPlatformKit with your existing project. CocoaPods is a dependency manager for Objective-C and Swift that makes dealing with code dependencies easy.
@@ -37,7 +41,7 @@ PodioPlatformKit already works great with Swift. All you need to do is to add th
 #import <PodioPlatformKit/PodioPlatformKit.h>
 {% endhighlight %}
 
-Additionally, to make the PodioPlatformKit API easier to work with in Swift, download and drag the [PodioPlatformKitExtension.swift]() file into your project. This file extends a few common classes in PodioPlatformKit with additional type information, making them easier to work with from Swift.
+Additionally, to make the PodioPlatformKit API easier to work with in Swift, download and drag the [PodioKitExtensions.swift](https://github.com/podio/podio-objc-core/blob/master/PodioKitCore/Swift/PodioKitExtensions.swift) file into your project. This file extends a few common classes in PodioPlatformKit with additional type information, making them easier to work with from Swift.
 
 ## Using PodioPlatformKit
 

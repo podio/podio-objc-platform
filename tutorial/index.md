@@ -16,9 +16,7 @@ This tutorial will walk your through the steps of creating a simple bug tracker 
 
 ## 1. Creating a "Bug" template using Podio Platform Console
 
-//Shared with JS example?
-
-The first step is to set up a *project* for your app in the [Podio Platform Console](https://platform.podio.com) and integrate the SDK into your Xcode project. You can find instructions on how to do this under ["Getting Started"]({{ site.baseurl}}/).
+The first step is to set up a *project* for your app in the [Podio Platform Console](https://platform.podio.com) and integrate the SDK into your Xcode project. You can find instructions on how to do this by reading the ["Getting Started"]({{ site.baseurl}}/).
 
 ## 2. Configuring PodioPlatformKit SDK for your Xcode project
 
@@ -27,7 +25,7 @@ After integrating PodioPlatformKit with your Xcode project using CocoaPods and i
 {% highlight Swift %}
 func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
   Podio.setupWithAPIKey("my-project-api-key", secret: "my-project-secret") // 1
-  Podio.automaticallyStoreTokenInKeychainForCurrentApp()   // 2
+  Podio.automaticallyStoreTokenInKeychainForCurrentApp()                   // 2
 
   return true
 }
@@ -64,10 +62,14 @@ We can see here that `authenticateAsUserWithEmail(_:password)` returns a `PKTAsy
 
 In order to report bugs from your app, you need to be able to create new bugs from the app. We already set up a "Bug" template, so the only thing we need to do from the client app is to start creating instances of this template, a.k.a the items themselves.
 
+In Podio Platform, items are stored in [spaces](https://platform.podio.com/docs/spaces). Spaces are containers of items and people, and the items in a space can be accessed by the people in that space. This is a good way to group information with the people who should be able to access it. `createInSpaceWithID(_)` function will create a new bug instance in a space with the given ID, while the `save()` function will save changes to an existing item.
+
 In order to create a new bug, you just create an item using the "Bug" template:
 
 {% highlight Swift %}  
-let bug = PPKItem.itemUsingTemplate("Bug")
+let templateID = 12345 // The ID of the "Bug" template. You find the ID if the template you create in Podio Platform Console.
+let bug = PKTItem(templateID: templateID)
+
 println("Bug ID: \(bug.itemID)") // => "Bug ID: 0"
 
 bug["title"] = "Button is not working"                  // Single-line text field
@@ -75,9 +77,11 @@ bug["reproduce_steps"] = "1. Open app\n2. Click button" // Multi-line text field
 bug["status"] = "Open"                                  // Category field with options "Open" or "Fixed"
 bug["priority"] = "High"                                // Category field with options "High", "Medium", "Low"
 
-// Create the bug in a given space
-bug.createInSpace(1234)
-  .onSuccess { [weak bug] (savedBug: PPKItem!) in
+let space = ... // A space retrieved from somewhere
+
+// Create the bug in a space
+bug.createInSpaceWithID(space.spaceID)
+  .onSuccess { [weak bug] (savedBug: PKTItem!) in
     println("Bug ID: \(bug.itemID)") // => "Bug ID: 1234"
   }
   .onError { error in
@@ -91,7 +95,7 @@ If you want to update a particular field of the bug, just set a new value and ca
 bug["status"] = "Fixed"
 
 bug.save()
-  .onSuccess { (savedBug: PPKItem!) in
+  .onSuccess { (savedBug: PKTItem!) in
     let savedStatus = savedBug["status"]
     println("Bug status: \(savedStatus)") // => "Bug status: Fixed"
   }
@@ -100,8 +104,6 @@ bug.save()
   }
 {% endhighlight %}
 
-In Podio Platform, items are stored in [spaces](https://platform.podio.com/docs/spaces). Spaces are containers of items and people, and the items in a space can be accessed by the people in that space. This is a good way to group information with the people who should be able to access it. `createInSpace(_)` function will create a new bug instance in a space with the given ID, while the `save()` function will save changes to an existing item.
-
 ## 5. Listing and filtering of bugs
 
 To be able to keep track of bugs that needs fixing from within your app, you need to be able to retrieve a list of the existing bugs, but only returning those that have their "status" field set to "Open". 
@@ -109,10 +111,11 @@ To be able to keep track of bugs that needs fixing from within your app, you nee
 You can do this using the Podio Platform filtering functionality:
 
 {% highlight Swift %}
-let filter = PPKItemFilter().withCategory("status", text: "Open")
+let templateID = 12345 // You find the ID if the template you create in Podio Platform Console
+let filter = PKTItemFilters().withCategory("status", text: "Open")
 
-PPKItem.fetchAllMatchingFilter(filter)
-  .onSuccess { (openBugs: [PPKItem]!) in
+PKTItem.fetchItemsInSpaceWithID(spaceID, templateID: templateID, offset: 0, limit: 20, sortBy: "created_on", descending: true, filters:filters)
+  .onSuccess { (openBugs: [PKTItem]!) in
     println("Found \(count(openBugs)) open bugs")
   }
   .onError { error in
@@ -125,7 +128,7 @@ PPKItem.fetchAllMatchingFilter(filter)
 Podio Platform provides support for uploading, storing and associating files with any items created. For our bug tracker, we might want to associate a test file needed to reproduce the bug. Associating a file with a bug is extremely easy using PodioPlatformKit, and is a two step process; first you need to upload the file, then attach it to the bug item:
 
 {% highlight Swift %}
-PPKFile.uploadWithPath("/tmp/some/local/file.docx")
+PKTFile.uploadWithPath("/tmp/some/local/file.docx")
   .pipe { (file: PKKFile!) in
     // pipe() is used to chain operations, by providing the result of the first operation
     // to be optionally used to create the second one
@@ -152,9 +155,8 @@ The first step can be easily accomplished using the following call:
 
 {% highlight Swift %}
 let space: PKKSpace = .. // A PKKSpace instance retrieved from somewhere
-let user: PPKProfile = .. // A PKKProfile instance retrieved from somewhere
 
-space.addMemberWithProfileID(profile.profileID)
+space.addMemberWithEmail("jon@podio.com", role: .Regular)
   .onSuccess { (response: PKTResponse!) in
     println("Member successfully added")
   }
@@ -171,7 +173,7 @@ bug["assignee"] = profile
 bug["assignee"] = profile.profileID
 
 bug.save()
-  .onSuccess { (savedBug: PPKItem!) in
+  .onSuccess { (savedBug: PKTItem!) in
     println("Bug saved")
   }
   .onError { error in
