@@ -184,7 +184,7 @@ bug.save()
 Another way to collaborate around your items is by adding comments. This is very easy using the `PKTComment` class:
 
 {% highlight Swift %}
-PKTComment.addCommentWithText("This looks great!", referenceID: bug.itemID, referenceType: .Item)
+PKTComment.addCommentWithText("This looks great!", itemID: bug.itemID)
   .onSuccess { (comment: PKTComment!) in
     println("Comment added with ID: \(comment.commentID)")
   }
