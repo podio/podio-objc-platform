@@ -7,4 +7,7 @@
 //
 
 #import "PodioKitCore.h"
-#import "PKTAppsAPI.h"
+
+#import "PKTSpace.h"
+#import "PKTItem+Platform.h"
+#import "PKTComment+Platform.h"
