@@ -7,7 +7,7 @@ PodioPlatformKit is an Objective-C and Swift client library for [Podio Platform]
 
 PodioPlatformKit uses ARC and is based on NSURLSession, which means it supports iOS 7.0 and above and Mac OS X 10.9 and above.
 
-PodioPlatformKit is still in beta, so we suggest you use the latest code from the master branch. All examples here will be in Swift, but can be translated directly to Objective-C if preferred.
+All examples here will be in Swift, but can be translated directly to Objective-C if preferred.
 
 ## Getting Started with Podio Platform
 
@@ -19,13 +19,19 @@ We encourage you to use [CocoaPods](http://cocoapods.org/) to integrate PodioPla
 
 First, make sure your have integrated CocoaPods with your project. If you have not, there is a great guide available [here](http://guides.cocoapods.org/using/getting-started.html).
 
-Once CocoaPods is installed, add the following line to your `Podfile` to use the latest version:
+Once CocoaPods is installed, add line (1) and (2) to your `Podfile` to use the latest version:
 
 {% highlight ruby %}
-pod 'PodioPlatformKit', :git => 'https://github.com/podio/podio-objc-platform.git', :branch => 'master'
+source 'https://github.com/CocoaPods/Specs.git' # Official CocoaPods source repo
+
+# Add an additional source at the top of your Podfile to find the pod
+source 'https://github.com/podio/CocoaPodsSpecs.git' # (1)
+
+# Add the pod to your target
+pod 'PodioPlatformKit', '~> 0.1.0' # (2)
 {% endhighlight %}
 
-Then run `pod install` from the command line. Because PodioPlatformKit is not yet a published CocoaPod, you will need to point the `Podfile` directly to the repository URL and branch.
+Then run `pod install` from the command line. Because PodioPlatformKit is not yet published to the public CocoaPods Specs repository, you need to add an additional `source` at the top of your Podfile.
 
 After that you are ready to start using PodioPlatformKit by importing the main header file where you would like to use it in your project:
 
