@@ -49,12 +49,12 @@ Pod::Spec.new do |s|
 
   # Push (real-time) functionality needs to be explicitly included 
   # due to additional dependencies
-  s.subspec 'Push' do |sp|
-    sp.source_files = "#{core_path}/Push/**/*.{h,m}"
-    sp.public_header_files = "#{core_path}/Push/**/*.h"
-
-    sp.dependency 'PodioPlatformKit/Common'
-    sp.dependency 'DDCometClient',  '~> 1.0'
-    sp.dependency 'FXReachability', '~> 1.3'
-  end
+  # s.subspec 'Push' do |sp|
+  #   sp.source_files = "#{core_path}/Push/**/*.{h,m}"
+  #   sp.public_header_files = "#{core_path}/Push/**/*.h"
+  #
+  #   sp.dependency 'PodioPlatformKit/Common'
+  #   sp.dependency 'DDCometClient',  '~> 1.0'
+  #   sp.dependency 'FXReachability', '~> 1.3'
+  # end
 end
