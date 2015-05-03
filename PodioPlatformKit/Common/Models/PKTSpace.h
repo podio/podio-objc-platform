@@ -17,4 +17,19 @@
  */
 + (PKTAsyncTask *)fetchAllSpaces;
 
+/**
+ *  Fetches the personal space of the user. The name of a personal
+ *  space will be "{user_id}-{project_id}-personal".
+ *
+ *  @return A task providing the personal space on success.
+ */
++ (PKTAsyncTask *)fetchPersonalSpace;
+
+/**
+ *  Creates a new space with a given name.
+ *
+ *  @return A task which succeeds if the space is created.
+ */
++ (PKTAsyncTask *)createSpaceWithName:(NSString *)name;
+
 @end
