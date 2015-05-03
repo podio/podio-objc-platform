@@ -112,7 +112,7 @@ You can do this using the Podio Platform filtering functionality:
 
 {% highlight Swift %}
 let templateID = 12345 // You find the ID if the template you create in Podio Platform Console
-let filter = PKTItemFilters().withCategory("status", text: "Open")
+let filter = PKTItemFilters().withValue("Open", forKey: "status")
 
 PKTItem.fetchItemsInSpaceWithID(spaceID, templateID: templateID, offset: 0, limit: 20, sortBy: "created_on", descending: true, filters:filters)
   .onSuccess { (openBugs: [PKTItem]!) in
