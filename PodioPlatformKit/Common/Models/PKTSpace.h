@@ -21,9 +21,16 @@
  *  Fetches the personal space of the user. The name of a personal
  *  space will be "{user_id}-{project_id}-personal".
  *
- *  @return A task providing the personal space on success.
+ *  @return A task providing the personal space (PKTSpace) on success.
  */
 + (PKTAsyncTask *)fetchPersonalSpace;
+
+/**
+ *  Fetches the public space of the project.
+ *
+ *  @return A task providign the public space (PKTSpace) in success.
+ */
++ (PKTAsyncTask *)fetchPublicSpace;
 
 /**
  *  Creates a new space with a given name.

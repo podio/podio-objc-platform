@@ -44,6 +44,14 @@
   }];
 }
 
++ (PKTAsyncTask *)fetchPublicSpace {
+  PKTRequest *request = [PKTRequest GETRequestWithPath:@"/space/public" parameters:nil];
+  
+  return [[[PKTClient currentClient] performRequest:request] map:^id(PKTResponse *response) {
+    return [[PKTSpace alloc] initWithDictionary:response.body];
+  }];
+}
+
 + (PKTAsyncTask *)createSpaceWithName:(NSString *)name {
   return [self createWorkspaceWithName:name organizationID:0];
 }
