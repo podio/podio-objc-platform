@@ -16,4 +16,12 @@
   return [self fetchItemsInAppWithID:templateID spaceID:spaceID offset:offset limit:limit sortBy:sortBy descending:descending filters:filters.filtersDictionary];
 }
 
++ (PKTAsyncTask *)fetchItemsInPersonalSpaceForTemplateWithID:(NSUInteger)templateID offset:(NSUInteger)offset limit:(NSUInteger)limit sortBy:(NSString *)sortBy descending:(BOOL)descending filters:(NSDictionary *)filters {
+  return [self fetchItemsInPersonalSpaceForAppWithID:templateID offset:offset limit:limit sortBy:sortBy descending:descending filters:filters];
+}
+
++ (PKTAsyncTask *)fetchItemsInPublicSpaceForTemplateWithID:(NSUInteger)templateID offset:(NSUInteger)offset limit:(NSUInteger)limit sortBy:(NSString *)sortBy descending:(BOOL)descending filters:(NSDictionary *)filters {
+  return [self fetchItemsInPublicSpaceForAppWithID:templateID offset:offset limit:limit sortBy:sortBy descending:descending filters:filters];
+}
+
 @end
