@@ -47,8 +47,8 @@ Pod::Spec.new do |s|
     sp.ios.frameworks = 'UIKit'
   end
 
-  Push (real-time) functionality needs to be explicitly included
-  due to additional dependencies
+  # Push (real-time) functionality needs to be explicitly included
+  # due to additional dependencies
   s.subspec 'Push' do |sp|
     sp.source_files = "#{core_path}/Push/**/*.{h,m}"
     sp.public_header_files = "#{core_path}/Push/**/*.h"
