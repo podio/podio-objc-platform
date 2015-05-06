@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
   
   s.name                = 'PodioPlatformKit'
-  s.version             = '0.1.5'
+  s.version             = '0.1.6'
   s.source              = { :git => 'https://github.com/podio/podio-objc-platform.git', :tag => s.version.to_s, :submodules => true }
 
   s.summary             = "PodioPlatformKit is an Objective-C client library for the Podio Platform API."
